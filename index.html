@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html><head><title data-l10n-id="title">(title)</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<link rel="apple-touch-icon" sizes="180x180" href="more-icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="more-icons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="more-icons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="more-icons/manifest.json">
+<link rel="mask-icon" href="more-icons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="more-icons/favicon.ico">
+<meta name="msapplication-config" content="more-icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="style.css">
+<link rel="resource" type="application/l10n" href="l10n/locales.ini">
+<script>
+if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installPackage)) {
+	navigator.serviceWorker.register('sw.js');
+}
+</script>
+<script src="js/lib/l10n.js"></script>
+<script src="js/properties.js"></script>
+<script src="js/unicode.js"></script>
+</head><body>
+<section id="page-loading">
+<img src="icons/icon-512.png">
+</section>
+
+<section id="page-main" hidden>
+<header><h1 data-l10n-id="page-main">(page-main)</h1></header>
+<div>
+<button id="button-blocks" data-l10n-id="button-blocks">(button-blocks)</button>
+<button id="button-scripts" data-l10n-id="button-scripts">(button-scripts)</button>
+<button id="button-chars" data-l10n-id="button-chars">(button-chars)</button>
+<button id="button-search" data-l10n-id="button-search">(button-search)</button>
+<button id="button-about" data-l10n-id="button-about">(button-about)</button>
+</div>
+</section>
+
+<div id="page-list" hidden>
+
+<section id="page-list-block" hidden>
+<header><span class="back-main">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1></header>
+<div></div>
+</section>
+
+<section id="page-list-script" hidden>
+<header><span class="back-main">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1></header>
+<div></div>
+</section>
+
+<section id="page-list-chars" hidden>
+<header><span class="back-main">‹</span><h1 data-l10n-id="page-chars">(page-chars)</h1></header>
+<div>
+<label><span data-l10n-id="label-chars">(label-chars)</span><br><textarea id="input-chars" cols="3"></textarea></label>
+<button id="button-chars-go" data-l10n-id="button-chars-go">(button-chars-go)</button>
+</div>
+</section>
+
+<section id="page-list-search" hidden>
+<header><span class="back-main">‹</span><h1 data-l10n-id="page-search">(page-search)</h1></header>
+<div>
+<label><span data-l10n-id="label-name">(label-name)</span><br><input id="input-search"></label>
+<button id="button-search-go" data-l10n-id="button-search-go">(button-search-go)</button>
+</div>
+</section>
+
+</div>
+<div id="page-result" hidden>
+
+<section id="page-result-block" hidden>
+<header><span class="back-list">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1></header>
+<div></div>
+</section>
+
+<section id="page-result-script" hidden>
+<header><span class="back-list">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1></header>
+<div></div>
+</section>
+
+<section id="page-result-chars" hidden>
+<header><span class="back-list">‹</span><h1 data-l10n-id="page-chars">(page-chars)</h1></header>
+<div></div>
+</section>
+
+<section id="page-result-search" hidden>
+<header><span class="back-list">‹</span><h1 data-l10n-id="page-search">(page-search)</h1></header>
+<div></div>
+</section>
+
+</div>
+
+<section id="page-char" hidden>
+<header><span class="back-result">‹</span><h1 data-l10n-id="page-char">(page-char)</h1></header>
+<div></div>
+</section>
+
+<section id="page-about" hidden>
+<header><span class="back-main">‹</span><h1 data-l10n-id="page-about">(page-about)</h1></header>
+<div>
+<h1 data-l10n-id="h-legend">(h-legend)</h1>
+<h2 data-l10n-id="h-version">(h-version)</h2>
+<p><ul class="char-list">
+<li class="age-1-1">1.1</li>
+<li class="age-2-0">2.0</li>
+<li class="age-2-1">2.1</li>
+<li class="age-3-0">3.0</li>
+<li class="age-3-1">3.1</li>
+<li class="age-3-2">3.2</li>
+<li class="age-4-0">4.0</li>
+<li class="age-4-1">4.1</li>
+<li class="age-5-0">5.0</li>
+<li class="age-5-1">5.1</li>
+<li class="age-5-2">5.2</li>
+<li class="age-6-0">6.0</li>
+<li class="age-6-1">6.1</li>
+<li class="age-6-2">6.2</li>
+<li class="age-6-3">6.3</li>
+<li class="age-7-0">7.0</li>
+<li class="age-8-0">8.0</li>
+<li class="age-9-0">9.0</li>
+</ul><br style="clear: both"></p>
+<h2 data-l10n-id="h-gc">(h-gc)</h2>
+<p><ul class="char-list">
+<li class="gc-cc">Cc</li>
+<li class="gc-cf">Cf</li>
+<li class="gc-cn">Cn</li>
+<li class="gc-co">Co</li>
+<li class="gc-cs">Cs</li>
+<li class="gc-ll">Ll</li>
+<li class="gc-lm">Lm</li>
+<li class="gc-lo">Lo</li>
+<li class="gc-lt">Lt</li>
+<li class="gc-lu">Lu</li>
+<li class="gc-mc">Mc</li>
+<li class="gc-me">Me</li>
+<li class="gc-mn">Mn</li>
+<li class="gc-nd">Nd</li>
+<li class="gc-nl">Nl</li>
+<li class="gc-no">No</li>
+<li class="gc-pc">Pc</li>
+<li class="gc-pd">Pd</li>
+<li class="gc-pe">Pe</li>
+<li class="gc-pf">Pf</li>
+<li class="gc-pi">Pi</li>
+<li class="gc-po">Po</li>
+<li class="gc-ps">Ps</li>
+<li class="gc-sc">Sc</li>
+<li class="gc-sk">Sk</li>
+<li class="gc-sm">Sm</li>
+<li class="gc-so">So</li>
+<li class="gc-zl">Zl</li>
+<li class="gc-zp">Zp</li>
+<li class="gc-zs">Zs</li>
+</ul><br style="clear: both"></p>
+<h1 data-l10n-id="h-ext">(h-ext)</h1>
+<p><span data-l10n-id="about-ext">(about-ext)</span>
+<ul>
+<li><a href="http://www.unicode.org/" target="_blank">unicode.org</a></li>
+<li><a href="http://emojicopy.com/" target="_blank">emojicopy.com</a></li>
+<li><a href="http://shapecatcher.com/" target="_blank">shapecatcher.com</a></li>
+</ul></p>
+<h1 data-l10n-id="h-use">(h-use)</h1>
+<p>
+<ul>
+<li data-l10n-id="about-use-1">(about-use-1)</li>
+<li data-l10n-id="about-use-2">(about-use-2)</li>
+<li data-l10n-id="about-use-3">(about-use-3)</li>
+</ul>
+</p>
+<h1 data-l10n-id="h-license">(h-license)</h1>
+<p data-l10n-id="about-license"></p>
+</div>
+</section>
+<script src="js/app.js"></script>
+</body></html>

@@ -1,0 +1,289 @@
+body {
+	font-family: sans-serif;
+}
+
+#page-loading img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 512px;
+	height: 512px;
+	margin-left: -256px;
+	margin-top: -256px;
+}
+
+@media (max-width: 512px) {
+	#page-loading img {
+		width: 256px;
+		height: 256px;
+		margin-left: -128px;
+		margin-top: -128px;
+	}
+}
+
+@media (max-width: 256px) {
+	#page-loading img {
+		display: none;
+	}
+}
+
+section {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	background-color: white;
+	color: black;
+}
+
+header {
+	background-color: #900;
+	color: white;
+	height: 3em;
+	line-height: 2;
+	overflow: hidden;
+	position: relative;
+}
+
+header > span {
+	position: absolute;
+	top: 0;
+	display: block;
+	width: 1.5em;
+	height: 1.5em;
+	line-height: 1.5;
+	cursor: pointer;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 200%;
+}
+
+header h1 {
+	line-height: 2;
+	margin: 0 2em;
+	height: 2em;
+	font-size: 150%;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+section > div {
+	height: calc((100% - 3em) - (2 * 5px));
+	padding: 5px;
+	overflow: auto;
+}
+
+.char {
+	font-size: 200%;
+}
+
+.gc-zs .char {
+	background-color: white;
+	color: black;
+}
+
+.char-list li {
+	display: block;
+	float: left;
+	width: 4em;
+	height: 4em;
+	border: 2px solid black;
+	margin: 1px;
+	text-align: center;
+	line-height: 2;
+}
+
+li.age-1-1 {
+	border-color: hsl(0,0%,0%);
+}
+li.age-2-0 {
+	border-color: hsl(0,6%,10%);
+}
+li.age-2-1 {
+	border-color: hsl(0,12%,20%);
+}
+li.age-3-0 {
+	border-color: hsl(0,18%,30%);
+}
+li.age-3-1 {
+	border-color: hsl(0,24%,40%);
+}
+li.age-3-2 {
+	border-color: hsl(0,29%,50%);
+}
+li.age-4-0 {
+	border-color: hsl(0,35%,50%);
+}
+li.age-4-1 {
+	border-color: hsl(0,41%,50%);
+}
+li.age-5-0 {
+	border-color: hsl(0,47%,50%);
+}
+li.age-5-1 {
+	border-color: hsl(0,53%,50%);
+}
+li.age-5-2 {
+	border-color: hsl(0,59%,50%);
+}
+li.age-6-0 {
+	border-color: hsl(0,65%,50%);
+}
+li.age-6-1 {
+	border-color: hsl(0,71%,50%);
+}
+li.age-6-2 {
+	border-color: hsl(0,77%,50%);
+}
+li.age-6-3 {
+	border-color: hsl(0,83%,50%);
+}
+li.age-7-0 {
+	border-color: hsl(0,88%,50%);
+}
+li.age-8-0 {
+	border-color: hsl(0,94%,50%);
+}
+li.age-9-0 {
+	border-color: hsl(0,100%,50%);
+}
+
+li.gc-cc {
+	background-color: #999;
+}
+li.gc-cf {
+	background-color: #ccc;
+}
+li.gc-cn {
+	background-color: #333;
+	color: white;
+}
+li.gc-co {
+	background-color: #555;
+	color: white;
+}
+li.gc-cs {
+	background-color: #333;
+	color: white;
+}
+li.gc-ll {
+	background-color: #ffd;
+}
+li.gc-lm {
+	background-color: #ddc;
+}
+li.gc-lo {
+	background-color: #ddc;
+}
+li.gc-lt {
+	background-color: #ffb;
+}
+li.gc-lu {
+	background-color: #ffd;
+}
+li.gc-mc {
+	background-color: #afa;
+}
+li.gc-me {
+	background-color: #cfc;
+}
+li.gc-mn {
+	background-color: #efe;
+}
+li.gc-nd {
+	background-color: #eef;
+}
+li.gc-nl {
+	background-color: #dde;
+}
+li.gc-no {
+	background-color: #cff;
+}
+li.gc-pc {
+	background-color: #fcc;
+}
+li.gc-pd {
+	background-color: #fdd;
+}
+li.gc-pe {
+	background-color: #fee;
+}
+li.gc-pf {
+	background-color: #fee;
+}
+li.gc-pi {
+	background-color: #fee;
+}
+li.gc-po {
+	background-color: #fdd;
+}
+li.gc-ps {
+	background-color: #fee;
+}
+li.gc-sc {
+	background-color: #fdf;
+}
+li.gc-sk {
+	background-color: #fcf;
+}
+li.gc-sm {
+	background-color: #fef;
+}
+li.gc-so {
+	background-color: #fbf;
+}
+li.gc-zl {
+	background-color: #ccc;
+}
+li.gc-zp {
+	background-color: #ccc;
+}
+li.gc-zs {
+	background-color: #ccc;
+}
+
+.link-list {
+	padding: 0;
+}
+
+section > div {
+	padding: 5px;
+}
+
+.link-list li,
+button {
+	display: block;
+	width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	line-height: 2;
+	margin: 5px 0;
+	padding: 5px;
+	border: none;
+	border-bottom: 1px solid black;
+	border-radius: 0px;
+	background: #eee;
+	color: black;
+	text-align: left;
+}
+
+button,
+textarea,
+input {
+	font-size: inherit;
+}
+
+textarea,
+input:not([type]) {
+	width: 100%;
+	height: 1.5em;
+}
+
+textarea {
+	height: 3em;
+}

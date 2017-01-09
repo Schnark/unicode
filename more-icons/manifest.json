@@ -1,0 +1,18 @@
+{
+	"name": "Unicode Browser",
+	"icons": [
+		{
+			"src": "\/unicode\/more-icons\/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image\/png"
+		},
+		{
+			"src": "\/unicode\/more-icons\/android-chrome-512x512.png",
+			"sizes": "512x512",
+			"type": "image\/png"
+		}
+	],
+	"theme_color": "#ffffff",
+	"start_url": "https:\/\/schnark.github.io\/unicode\/index.html",
+	"display": "standalone"
+}

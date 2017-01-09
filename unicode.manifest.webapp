@@ -1,0 +1,23 @@
+{
+	"version": "1.0",
+	"name": "Unicode Browser",
+	"description": "Unicode character browser",
+	"size": 433326,
+	"package_path": "http://localhost:8080/unicode.zip",
+	"icons": {
+		"128": "/icons/icon-128.png",
+		"512": "/icons/icon-512.png"
+	},
+	"developer": {
+		"name": "Michael Müller",
+		"url": "https://github.com/Schnark"
+	},
+	"installs_allowed_from": ["*"],
+	"default_locale": "en",
+	"locales": {
+		"de": {
+			"name": "Unicode-Browser",
+			"description": "Browser für Unicode-Zeichen"
+		}
+	}
+}

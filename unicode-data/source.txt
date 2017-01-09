@@ -1,0 +1,61 @@
+The files in this directory are from unicode.org.
+
+From http://www.unicode.org/Public/9.0.0/ucd/:
+* Blocks.txt
+* DerivedAge.txt
+* Jamo.txt
+* NameAliases.txt
+* NamedSequences.txt
+* PropertyValueAliases.txt
+* ScriptExtensios.txt
+* Scripts.txt
+* StandardizedVariants.txt
+
+From http://www.unicode.org/Public/emoji/4.0/:
+* emoji-sequences.txt
+* emoji-zwj-sequences.txt
+
+From http://www.unicode.org/Public/9.0.0/ucd/, with modifications:
+* UnicodeData.modified.txt
+The original UnicodeData.txt has been modified to replace all ranges of the form
+
+start;<Range, First>;more data
+end;<Range, Last>;same data
+
+by the format from the other files:
+
+start..end;<Range>;data
+
+To all these files the following license applies:
+
+Copyright © 1991-2016 Unicode, Inc. All rights reserved.
+Distributed under the Terms of Use in http://www.unicode.org/copyright.html.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Unicode data files and any associated documentation
+(the "Data Files") or Unicode software and any associated documentation
+(the "Software") to deal in the Data Files or Software
+without restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, and/or sell copies of
+the Data Files or Software, and to permit persons to whom the Data Files
+or Software are furnished to do so, provided that either
+(a) this copyright and permission notice appear with all copies
+of the Data Files or Software, or
+(b) this copyright and permission notice appear in associated
+Documentation.
+
+THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT OF THIRD PARTY RIGHTS.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS
+NOTICE BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL
+DAMAGES, OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THE DATA FILES OR SOFTWARE.
+
+Except as contained in this notice, the name of a copyright holder
+shall not be used in advertising or otherwise to promote the sale,
+use or other dealings in these Data Files or Software without prior
+written authorization of the copyright holder.

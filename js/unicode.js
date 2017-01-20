@@ -280,8 +280,16 @@ function getGC (codepoint) {
 	return store.gc.getProperty(codepoint);
 }
 
+function getGcChars (gc) {
+	return store.gc.getList(gc);
+}
+
 function getAge (codepoint) {
 	return store.age.getProperty(codepoint);
+}
+
+function getAgeChars (age) {
+	return store.age.getList(age);
 }
 
 function getSequences (codepoint) {
@@ -388,6 +396,8 @@ return {
 	getSequences: getSequences,
 	getBlockNames: getBlockNames,
 	getBlockChars: getBlockChars,
+	getGcChars: getGcChars,
+	getAgeChars: getAgeChars,
 	getBlock: getBlock,
 	getScriptNames: getScriptNames,
 	getScriptChars: getScriptChars,

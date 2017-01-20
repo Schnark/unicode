@@ -2,12 +2,13 @@
 (function (worker) {
 "use strict";
 
-var VERSION = 'v1.0',
+var VERSION = 'v1.1',
 	FILES = [
 		'index.html',
 		'style.css',
 		'icons/icon-512.png',
 		'js/app.js',
+		'js/font.js',
 		'js/properties.js',
 		'js/unicode.js',
 		'js/lib/l10n.js',

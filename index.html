@@ -20,6 +20,12 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <script src="js/lib/l10n.js"></script>
 <script src="js/properties.js"></script>
 <script src="js/unicode.js"></script>
+<script src="js/font.js"></script>
+<style id="font-style">
+.font-support {
+	font-family: sans-serif;
+}
+</style>
 </head><body>
 <section id="page-loading">
 <img src="icons/icon-512.png">
@@ -32,6 +38,7 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <button id="button-scripts" data-l10n-id="button-scripts">(button-scripts)</button>
 <button id="button-chars" data-l10n-id="button-chars">(button-chars)</button>
 <button id="button-search" data-l10n-id="button-search">(button-search)</button>
+<button id="button-fonts" data-l10n-id="button-fonts">(button-fonts)</button>
 <button id="button-about" data-l10n-id="button-about">(button-about)</button>
 </div>
 </section>
@@ -39,17 +46,17 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <div id="page-list" hidden>
 
 <section id="page-list-block" hidden>
-<header><span class="back-main">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1></header>
+<header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1></header>
 <div></div>
 </section>
 
 <section id="page-list-script" hidden>
-<header><span class="back-main">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1></header>
+<header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1></header>
 <div></div>
 </section>
 
 <section id="page-list-chars" hidden>
-<header><span class="back-main">‹</span><h1 data-l10n-id="page-chars">(page-chars)</h1></header>
+<header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-chars">(page-chars)</h1></header>
 <div>
 <label><span data-l10n-id="label-chars">(label-chars)</span><br><textarea id="input-chars" cols="3"></textarea></label>
 <button id="button-chars-go" data-l10n-id="button-chars-go">(button-chars-go)</button>
@@ -57,7 +64,7 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 </section>
 
 <section id="page-list-search" hidden>
-<header><span class="back-main">‹</span><h1 data-l10n-id="page-search">(page-search)</h1></header>
+<header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-search">(page-search)</h1></header>
 <div>
 <label><span data-l10n-id="label-name">(label-name)</span><br><input id="input-search"></label>
 <button id="button-search-go" data-l10n-id="button-search-go">(button-search-go)</button>
@@ -68,89 +75,121 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <div id="page-result" hidden>
 
 <section id="page-result-block" hidden>
-<header><span class="back-list">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1></header>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1><span class="font-toggle font-none icon-right">F</span></header>
 <div></div>
 </section>
 
 <section id="page-result-script" hidden>
-<header><span class="back-list">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1></header>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1><span class="font-toggle font-none icon-right">F</span></header>
 <div></div>
 </section>
 
 <section id="page-result-chars" hidden>
-<header><span class="back-list">‹</span><h1 data-l10n-id="page-chars">(page-chars)</h1></header>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-chars">(page-chars)</h1><span class="font-toggle font-none icon-right">F</span></header>
 <div></div>
 </section>
 
 <section id="page-result-search" hidden>
-<header><span class="back-list">‹</span><h1 data-l10n-id="page-search">(page-search)</h1></header>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-search">(page-search)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+<section id="page-result-gc" hidden>
+<header><span class="back-about icon-left">‹</span><h1 data-l10n-id="page-gc">(page-gc)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+<section id="page-result-age" hidden>
+<header><span class="back-about icon-left">‹</span><h1 data-l10n-id="page-age">(page-age)</h1><span class="font-toggle font-none icon-right">F</span></header>
 <div></div>
 </section>
 
 </div>
 
 <section id="page-char" hidden>
-<header><span class="back-result">‹</span><h1 data-l10n-id="page-char">(page-char)</h1></header>
+<header><span class="back-result icon-left">‹</span><h1 data-l10n-id="page-char">(page-char)</h1><span class="font-toggle font-none icon-right">F</span></header>
 <div></div>
 </section>
 
+<section id="page-fonts" hidden>
+<header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-fonts">(page-fonts)</h1></header>
+<div>
+<p data-l10n-id="explain-fonts">(explain-fonts)</p>
+<button class="font-load" data-name="notationalSystemsSymbols" data-l10n-id="font-notationalSystemsSymbols">(font-notationalSystemsSymbols)</button>
+<button class="font-load" data-name="europa1" data-l10n-id="font-europa1">(font-europa1)</button>
+<button class="font-load" data-name="europa2" data-l10n-id="font-europa2">(font-europa2)</button>
+<button class="font-load" data-name="middleEast1" data-l10n-id="font-middleEast1">(font-middleEast1)</button>
+<button class="font-load" data-name="middleEast2" data-l10n-id="font-middleEast2">(font-middleEast2)</button>
+<button class="font-load" data-name="cuneiformHieroglyphs" data-l10n-id="font-cuneiformHieroglyphs">(font-cuneiformHieroglyphs)</button>
+<button class="font-load" data-name="southCentralAsia1" data-l10n-id="font-southCentralAsia1">(font-southCentralAsia1)</button>
+<button class="font-load" data-name="southCentralAsia2" data-l10n-id="font-southCentralAsia2">(font-southCentralAsia2)</button>
+<button class="font-load" data-name="southCentralAsia3" data-l10n-id="font-southCentralAsia3">(font-southCentralAsia3)</button>
+<button class="font-load" data-name="southCentralAsia4" data-l10n-id="font-southCentralAsia4">(font-southCentralAsia4)</button>
+<button class="font-load" data-name="southeastAsia" data-l10n-id="font-southeastAsia">(font-southeastAsia)</button>
+<button class="font-load" data-name="indonesiaOceania" data-l10n-id="font-indonesiaOceania">(font-indonesiaOceania)</button>
+<button class="font-load" data-name="eastAsia" data-l10n-id="font-eastAsia">(font-eastAsia)</button>
+<button class="font-load" data-name="africa" data-l10n-id="font-africa">(font-africa)</button>
+<button class="font-load" data-name="americas" data-l10n-id="font-americas">(font-americas)</button>
+</div>
+</section>
+
 <section id="page-about" hidden>
-<header><span class="back-main">‹</span><h1 data-l10n-id="page-about">(page-about)</h1></header>
+<header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-about">(page-about)</h1></header>
 <div>
 <h1 data-l10n-id="h-legend">(h-legend)</h1>
 <h2 data-l10n-id="h-version">(h-version)</h2>
 <p><ul class="char-list">
-<li class="age-1-1">1.1</li>
-<li class="age-2-0">2.0</li>
-<li class="age-2-1">2.1</li>
-<li class="age-3-0">3.0</li>
-<li class="age-3-1">3.1</li>
-<li class="age-3-2">3.2</li>
-<li class="age-4-0">4.0</li>
-<li class="age-4-1">4.1</li>
-<li class="age-5-0">5.0</li>
-<li class="age-5-1">5.1</li>
-<li class="age-5-2">5.2</li>
-<li class="age-6-0">6.0</li>
-<li class="age-6-1">6.1</li>
-<li class="age-6-2">6.2</li>
-<li class="age-6-3">6.3</li>
-<li class="age-7-0">7.0</li>
-<li class="age-8-0">8.0</li>
-<li class="age-9-0">9.0</li>
+<li class="click-age age-1-1" data-name="1.1">1.1</li>
+<li class="click-age age-2-0" data-name="2.0">2.0</li>
+<li class="click-age age-2-1" data-name="2.1">2.1</li>
+<li class="click-age age-3-0" data-name="3.0">3.0</li>
+<li class="click-age age-3-1" data-name="3.1">3.1</li>
+<li class="click-age age-3-2" data-name="3.2">3.2</li>
+<li class="click-age age-4-0" data-name="4.0">4.0</li>
+<li class="click-age age-4-1" data-name="4.1">4.1</li>
+<li class="click-age age-5-0" data-name="5.0">5.0</li>
+<li class="click-age age-5-1" data-name="5.1">5.1</li>
+<li class="click-age age-5-2" data-name="5.2">5.2</li>
+<li class="click-age age-6-0" data-name="6.0">6.0</li>
+<li class="click-age age-6-1" data-name="6.1">6.1</li>
+<li class="click-age age-6-2" data-name="6.2">6.2</li>
+<li class="click-age age-6-3" data-name="6.3">6.3</li>
+<li class="click-age age-7-0" data-name="7.0">7.0</li>
+<li class="click-age age-8-0" data-name="8.0">8.0</li>
+<li class="click-age age-9-0" data-name="9.0">9.0</li>
 </ul><br style="clear: both"></p>
 <h2 data-l10n-id="h-gc">(h-gc)</h2>
 <p><ul class="char-list">
-<li class="gc-cc">Cc</li>
-<li class="gc-cf">Cf</li>
-<li class="gc-cn">Cn</li>
-<li class="gc-co">Co</li>
-<li class="gc-cs">Cs</li>
-<li class="gc-ll">Ll</li>
-<li class="gc-lm">Lm</li>
-<li class="gc-lo">Lo</li>
-<li class="gc-lt">Lt</li>
-<li class="gc-lu">Lu</li>
-<li class="gc-mc">Mc</li>
-<li class="gc-me">Me</li>
-<li class="gc-mn">Mn</li>
-<li class="gc-nd">Nd</li>
-<li class="gc-nl">Nl</li>
-<li class="gc-no">No</li>
-<li class="gc-pc">Pc</li>
-<li class="gc-pd">Pd</li>
-<li class="gc-pe">Pe</li>
-<li class="gc-pf">Pf</li>
-<li class="gc-pi">Pi</li>
-<li class="gc-po">Po</li>
-<li class="gc-ps">Ps</li>
-<li class="gc-sc">Sc</li>
-<li class="gc-sk">Sk</li>
-<li class="gc-sm">Sm</li>
-<li class="gc-so">So</li>
-<li class="gc-zl">Zl</li>
-<li class="gc-zp">Zp</li>
-<li class="gc-zs">Zs</li>
+<li class="click-gc gc-cc" data-name="Cc">Cc</li>
+<li class="click-gc gc-cf" data-name="Cf">Cf</li>
+<li class="click-gc gc-cn" data-name="Cn">Cn</li>
+<li class="click-gc gc-co" data-name="Co">Co</li>
+<li class="click-gc gc-cs" data-name="Cs">Cs</li>
+<li class="click-gc gc-ll" data-name="Ll">Ll</li>
+<li class="click-gc gc-lm" data-name="Lm">Lm</li>
+<li class="click-gc gc-lo" data-name="Lo">Lo</li>
+<li class="click-gc gc-lt" data-name="Lt">Lt</li>
+<li class="click-gc gc-lu" data-name="Lu">Lu</li>
+<li class="click-gc gc-mc" data-name="Mc">Mc</li>
+<li class="click-gc gc-me" data-name="Me">Me</li>
+<li class="click-gc gc-mn" data-name="Mn">Mn</li>
+<li class="click-gc gc-nd" data-name="Nd">Nd</li>
+<li class="click-gc gc-nl" data-name="Nl">Nl</li>
+<li class="click-gc gc-no" data-name="No">No</li>
+<li class="click-gc gc-pc" data-name="Pc">Pc</li>
+<li class="click-gc gc-pd" data-name="Pd">Pd</li>
+<li class="click-gc gc-pe" data-name="Pe">Pe</li>
+<li class="click-gc gc-pf" data-name="Pf">Pf</li>
+<li class="click-gc gc-pi" data-name="Pi">Pi</li>
+<li class="click-gc gc-po" data-name="Po">Po</li>
+<li class="click-gc gc-ps" data-name="Ps">Ps</li>
+<li class="click-gc gc-sc" data-name="Sc">Sc</li>
+<li class="click-gc gc-sk" data-name="Sk">Sk</li>
+<li class="click-gc gc-sm" data-name="Sm">Sm</li>
+<li class="click-gc gc-so" data-name="So">So</li>
+<li class="click-gc gc-zl" data-name="Zl">Zl</li>
+<li class="click-gc gc-zp" data-name="Zp">Zp</li>
+<li class="click-gc gc-zs" data-name="Zs">Zs</li>
 </ul><br style="clear: both"></p>
 <h1 data-l10n-id="h-ext">(h-ext)</h1>
 <p><span data-l10n-id="about-ext">(about-ext)</span>

@@ -1,15 +1,15 @@
-/*global unicode, _ */
+/*global unicode, webfonts, _ */
 (function () {
 "use strict";
 
 function displaySequence (sequence) {
-	return sequence[0].map(unicode.getChar).join('') + ' (' +
+	return '<span class="font-support">' + sequence[0].map(unicode.getChar).join('') + '</span> (' +
 		sequence[1] + '; ' +
 		sequence[0].map(function (codepoint) {
 			return '<span data-codepoint="' + codepoint + '" class="click-char">' +
 				unicode.getHex(codepoint) + '</span>';
-		}).join(', ') + ': ' +
-		sequence[0].map(unicode.getDisplay).join(' ') + ')';
+		}).join(', ') + ': <span class="font-support">' +
+		sequence[0].map(unicode.getDisplay).join(' ') + '</span>)';
 }
 
 function showCharacter (el, codepoint) {
@@ -30,7 +30,7 @@ function showCharacter (el, codepoint) {
 	if (names[0]) {
 		html.push('<h1>' + names[0] + '</h1>');
 	}
-	html.push('<span class="char">' + display + '</span>');
+	html.push('<span class="char font-support">' + display + '</span>');
 	html.push('<ul>');
 	html.push('<li class="alt-name">' + hex + '</li>');
 	for (i = 1; i < names.length; i++) {
@@ -62,7 +62,15 @@ function showCharacter (el, codepoint) {
 		}
 	}
 	html.push('</ul>');
+	if (codepoint > 0) {
+		html.push('<input type="button" class="click-char" data-codepoint="' +
+			(codepoint - 1) + '" value="' + _('prev-char') + '">');
+	}
 	html.push('<input type="button" id="button-copy" value="' + _('button-copy') + '">');
+	if (codepoint < 0x10FFFF) {
+		html.push('<input type="button" class="click-char" data-codepoint="' +
+			(Number(codepoint) + 1) + '" value="' + _('next-char') + '">');
+	}
 	el.innerHTML = html.join('');
 }
 
@@ -70,7 +78,7 @@ function getListHtml (list, skip, max) {
 	var html = [], count = 0, all = 0;
 	skip = Number(skip) || 0;
 	max = max || 2048;
-	html.push('<ul class="char-list">');
+	html.push('<ul class="char-list font-support">');
 	list.forEach(function (codepoint) {
 		var gc = unicode.getGC(codepoint).toLowerCase();
 		if (gc !== 'cn') {
@@ -94,8 +102,9 @@ function makeNextPrev (name, skip, type, dir) {
 	if (skip === undefined) {
 		return '';
 	}
-	return '<p style="clear: both;"><span class="click-' + type + '" data-name="' + name + '" data-skip="' + skip + '">' +
-		(dir ? _('next-slice') : _('prev-slice')) + '</span></p>';
+	return '<p style="clear: both;"><input type="button" class="click-' + type +
+		'" data-name="' + name + '" data-skip="' + skip + '" value="' +
+		(dir ? _('next-slice') : _('prev-slice')) + '"></p>';
 }
 
 function showBlock (el, name, skip) {
@@ -119,6 +128,26 @@ function showScript (el, name, skip) {
 		html.push('<h2 style="clear: both;">' + _('h-add') + '</h2>');
 		html.push(getListHtml(lists[1], 0, Infinity)[0]);
 	}
+	el.innerHTML = html.join('');
+}
+
+function showGC (el, name, skip) {
+	var html = [], data = getListHtml(unicode.getGcChars(name), skip);
+	html.push('<h1>' + _('gc-' + name.toLowerCase()) + '</h1>');
+	html.push('<p>' + data[2] + '</p>');
+	html.push(makeNextPrev(name, data[3], 'gc'));
+	html.push(data[0]);
+	html.push(makeNextPrev(name, data[4], 'gc', true));
+	el.innerHTML = html.join('');
+}
+
+function showAge (el, name, skip) {
+	var html = [], data = getListHtml(unicode.getAgeChars(name), skip);
+	html.push('<h1>' + name + '</h1>');
+	html.push('<p>' + data[2] + '</p>');
+	html.push(makeNextPrev(name, data[3], 'age'));
+	html.push(data[0]);
+	html.push(makeNextPrev(name, data[4], 'age', true));
 	el.innerHTML = html.join('');
 }
 
@@ -153,7 +182,7 @@ function showScripts (el) {
 
 function showCharsFromString (el, string) {
 	var html = [];
-	html.push('<p>' + string.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</p>');
+	html.push('<p class="font-support">' + string.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</p>');
 	html.push(getListHtml(unicode.getCodepoints(string), 0, Infinity)[0]);
 	el.innerHTML = html.join('');
 }
@@ -173,6 +202,7 @@ var currentView = document.getElementById('page-loading'), views = {
 	list: document.getElementById('page-list'),
 	result: document.getElementById('page-result'),
 	char: document.getElementById('page-char'),
+	fonts: document.getElementById('page-fonts'),
 	about: document.getElementById('page-about')
 }, pages = {
 	list: {
@@ -185,7 +215,9 @@ var currentView = document.getElementById('page-loading'), views = {
 		block: document.getElementById('page-result-block'),
 		script: document.getElementById('page-result-script'),
 		chars: document.getElementById('page-result-chars'),
-		search: document.getElementById('page-result-search')
+		search: document.getElementById('page-result-search'),
+		gc: document.getElementById('page-result-gc'),
+		age: document.getElementById('page-result-age')
 	}
 }, inputs = {
 	chars: document.getElementById('input-chars'),
@@ -209,11 +241,20 @@ function displayMain () {
 	scrollTop();
 }
 
-function displayAbout () {
+function displayFonts () {
+	currentView.hidden = true;
+	currentView = views.fonts;
+	currentView.hidden = false;
+	scrollTop();
+}
+
+function displayAbout (noScroll) {
 	currentView.hidden = true;
 	currentView = views.about;
 	currentView.hidden = false;
-	scrollTop();
+	if (!noScroll) {
+		scrollTop();
+	}
 }
 
 function displayList (list) {
@@ -259,11 +300,19 @@ function displayListResult (list, search, skip) {
 			break;
 		case 'search':
 			showNameSearch(pages.result.search.getElementsByTagName('div')[0], search);
+			break;
+		case 'gc':
+			showGC(pages.result.gc.getElementsByTagName('div')[0], search, skip);
+			break;
+		case 'age':
+			showAge(pages.result.age.getElementsByTagName('div')[0], search, skip);
 		}
 		pages.result.block.hidden = true;
 		pages.result.script.hidden = true;
 		pages.result.chars.hidden = true;
 		pages.result.search.hidden = true;
+		pages.result.gc.hidden = true;
+		pages.result.age.hidden = true;
 		pages.result[list].hidden = false;
 		scrollTop();
 	}
@@ -311,6 +360,9 @@ document.addEventListener('click', function (e) {
 	case 'button-search':
 		displayList('search');
 		return;
+	case 'button-fonts':
+		displayFonts();
+		return;
 	case 'button-about':
 		displayAbout();
 		return;
@@ -333,6 +385,9 @@ document.addEventListener('click', function (e) {
 	case 'back-main':
 		displayMain();
 		return;
+	case 'back-about':
+		displayAbout(true);
+		return;
 	case 'back-list':
 		displayList();
 		return;
@@ -345,11 +400,44 @@ document.addEventListener('click', function (e) {
 	case 'click-script':
 		displayListResult('script', el.dataset.name, el.dataset.skip);
 		return;
+	case 'click-gc':
+		displayListResult('gc', el.dataset.name, el.dataset.skip);
+		return;
+	case 'click-age':
+		displayListResult('age', el.dataset.name, el.dataset.skip);
+		return;
 	case 'click-char':
 		displayChar(el.dataset.codepoint);
 		return;
+	case 'font-load':
+		el.style.display = 'none';
+		addWebfonts(el.dataset.name);
+		return;
+	case 'font-toggle':
+		toggleFont();
+		return;
 	}
 }, false);
+
+function toggleFont (state) {
+	var spans = document.getElementsByClassName('font-toggle'), i;
+	if (!state) {
+		state = spans[0].className.indexOf('disable') > -1 ? 'enable' : 'disable';
+		if (state === 'enable') {
+			webfonts.disable();
+		} else {
+			webfonts.enable();
+		}
+	}
+	for (i = 0; i < spans.length; i++) {
+		spans[i].className = spans[i].className.replace(/\bfont-(?:none|disable|enable)\b/, 'font-' + state);
+	}
+}
+
+function addWebfonts (data) {
+	webfonts.add(data);
+	toggleFont('disable');
+}
 
 function init () {
 	var todo = 2;

@@ -1,4 +1,4 @@
-/*global CodepointList, EnumProperty, MapProperty, unicode: true */
+/*global CodepointList, EnumProperty, MapProperty, CodepointSequence, unicode: true */
 /*jshint bitwise: false*/
 unicode =
 (function () {
@@ -64,6 +64,12 @@ function nameFallback (codepoint) {
 	return '';
 }
 
+function decompFallback (codepoint) {
+	if (0xAC00 <= codepoint && codepoint <= 0xD7A3) {
+		return new CodepointSequence(decomposeHangul(codepoint).map(hex).join(' '), 'canonical', hex(codepoint));
+	}
+}
+
 function generateBlocks (data) {
 	var i;
 	store.blocks = new EnumProperty('No_Block');
@@ -82,26 +88,19 @@ function generateAge (data) {
 
 function generateSequences (emoji1, emoji2, named, variants) {
 
-	function addSequence (seq, name) {
-		seq = seq.split(/\s+/);
-		store.sequences.add(seq[0], [seq.map(function (c) {
-			return parseInt(c, 16);
-		}), name]);
-	}
-
 	var i;
 	store.sequences = new MapProperty([]);
 	for (i = 0; i < emoji1.length; i++) {
-		addSequence(emoji1[i][0], emoji1[i][2]);
+		store.sequences.addSequence(new CodepointSequence(emoji1[i][0], emoji1[i][2]));
 	}
 	for (i = 0; i < emoji2.length; i++) {
-		addSequence(emoji2[i][0], emoji2[i][2]);
+		store.sequences.addSequence(new CodepointSequence(emoji2[i][0], emoji2[i][2]));
 	}
 	for (i = 0; i < named.length; i++) {
-		addSequence(named[i][1], named[i][0]);
+		store.sequences.addSequence(new CodepointSequence(named[i][1], named[i][0]));
 	}
 	for (i = 0; i < variants.length; i++) {
-		addSequence(variants[i][0], variants[i][1]);
+		store.sequences.addSequence(new CodepointSequence(variants[i][0], variants[i][1]));
 	}
 }
 
@@ -155,11 +154,23 @@ function generateScriptExtensions (data, aliasesData) {
 	}
 }
 
-function generateUnicodeData (data) {
+function generateSpecialCasingData (data) {
 	var i;
+	store.specialCase = new MapProperty([]);
+	for (i = 0; i < data.length; i++) {
+		store.specialCase.addSequence(new CodepointSequence(data[i][1], 'lowercase', data[i][0]));
+		store.specialCase.addSequence(new CodepointSequence(data[i][3], 'uppercase', data[i][0]));
+		store.specialCase.addSequence(new CodepointSequence(data[i][2], 'titlecase', data[i][0]));
+	}
+}
+
+function generateUnicodeData (data) {
+	var i, match;
 	store.name = new MapProperty(nameFallback, true);
 	store.gc = new EnumProperty('Cn');
 	store.oldName = new MapProperty('', true);
+	store.decomp = new MapProperty(decompFallback, true);
+	store.simpleCase = new MapProperty([]);
 	for (i = 0; i < data.length; i++) {
 		if (data[i][1].charAt(0) !== '<') {
 			store.name.add(data[i][0], data[i][1]);
@@ -168,11 +179,24 @@ function generateUnicodeData (data) {
 		if (data[i][10]) {
 			store.oldName.add(data[i][0], data[i][10]);
 		}
+		match = /^(?:<([a-zA-Z]+)>\s*)?([0-9a-zA-Z ]+)$/.exec(data[i][5]);
+		if (match) {
+			store.decomp.addSequence(new CodepointSequence(match[2], (match[1] || 'canonical').toLowerCase(), data[i][0]));
+		}
+		if (data[i][12]) {
+			store.simpleCase.addSequence(new CodepointSequence(data[i][12], 'uppercase', data[i][0]));
+		}
+		if (data[i][13]) {
+			store.simpleCase.addSequence(new CodepointSequence(data[i][13], 'lowercase', data[i][0]));
+		}
+		if (data[i][14] && data[i][14] !== data[i][12]) {
+			store.simpleCase.addSequence(new CodepointSequence(data[i][14], 'titlecase', data[i][0]));
+		}
 	}
 }
 
 function generateData (callback) {
-	var todo = 8;
+	var todo = 9;
 	function checkDone () {
 		todo--;
 		if (todo === 0) {
@@ -216,6 +240,10 @@ function generateData (callback) {
 			generateScriptExtensions(data, aliases);
 			checkDone();
 		});
+	});
+	loadFile('SpecialCasing', function (data) {
+		generateSpecialCasingData(data);
+		checkDone();
 	});
 	loadFile('UnicodeData.modified', function (data) {
 		generateUnicodeData(data);
@@ -320,6 +348,33 @@ function getScript (codepoint) {
 	return [store.scripts.getProperty(codepoint), store.scriptExtensionsMap.getProperty(codepoint)];
 }
 
+function getDecompostion (codepoint) {
+	return store.decomp.getProperty(codepoint);
+}
+
+function getCasing (codepoint) {
+	var simple = store.simpleCase.getProperty(codepoint),
+		special = store.specialCase.getProperty(codepoint),
+		all = simple.slice(),
+		i;
+
+	function format (seq) {
+		return seq.format(hex, ' ');
+	}
+
+	function add (seq) {
+		var s = format(seq);
+		if (s !== hex(codepoint) && all.map(format).indexOf(s) === -1) {
+			all.push(seq);
+		}
+	}
+
+	for (i = 0; i < special.length; i++) {
+		add(special[i]);
+	}
+	return all;
+}
+
 function getExternal (codepoint) {
 	return {
 		'Unicode': 'http://unicode.org/cldr/utility/character.jsp?a=' + hex(codepoint),
@@ -402,6 +457,8 @@ return {
 	getScriptNames: getScriptNames,
 	getScriptChars: getScriptChars,
 	getScript: getScript,
+	getDecomposition: getDecompostion,
+	getCasing: getCasing,
 	getExternal: getExternal,
 	searchForName: searchForName,
 	getCodepoints: getCodepoints

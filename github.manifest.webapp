@@ -1,8 +1,8 @@
 {
-	"version": "1.1",
+	"version": "1.2",
 	"name": "Unicode Browser",
 	"description": "Unicode character browser",
-	"size": 438242,
+	"size": 443848,
 	"package_path": "https://schnark.github.io/unicode/unicode.zip",
 	"icons": {
 		"128": "/icons/icon-128.png",

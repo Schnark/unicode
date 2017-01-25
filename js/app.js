@@ -2,19 +2,33 @@
 (function () {
 "use strict";
 
-function displaySequence (sequence) {
-	return '<span class="font-support">' + sequence[0].map(unicode.getChar).join('') + '</span> (' +
-		sequence[1] + '; ' +
-		sequence[0].map(function (codepoint) {
+function displaySequence (sequence, translate) {
+	var name = sequence.getName();
+	if (translate) {
+		name = translate(name);
+	}
+	return [
+		'<span class="font-support">' + sequence.format(unicode.getChar) + '</span>',
+		' (',
+		name + '; ',
+		sequence.format(function (codepoint) {
 			return '<span data-codepoint="' + codepoint + '" class="click-char">' +
 				unicode.getHex(codepoint) + '</span>';
-		}).join(', ') + ': <span class="font-support">' +
-		sequence[0].map(unicode.getDisplay).join(' ') + '</span>)';
+		}, ', '),
+		sequence.getLength() > 1 ?
+			': <span class="font-support">' + sequence.format(unicode.getDisplay, ' ') + '</span>' :
+			'',
+		')'
+	].join('');
 }
 
 function showCharacter (el, codepoint) {
 	function linkScript (script) {
 		return '<span data-name="' + script + '" class="click-script">' + script + '</span>';
+	}
+
+	function translateName (name) {
+		return _('related-' + name);
 	}
 
 	var html = [], i,
@@ -26,6 +40,9 @@ function showCharacter (el, codepoint) {
 		block = unicode.getBlock(codepoint),
 		script = unicode.getScript(codepoint),
 		sequences = unicode.getSequences(codepoint),
+		decomp = unicode.getDecomposition(codepoint),
+		casing = unicode.getCasing(codepoint),
+		related = casing.slice(),
 		external = unicode.getExternal(codepoint);
 	if (names[0]) {
 		html.push('<h1>' + names[0] + '</h1>');
@@ -51,6 +68,17 @@ function showCharacter (el, codepoint) {
 		html.push('<ul>');
 		for (i = 0; i < sequences.length; i++) {
 			html.push('<li>' + displaySequence(sequences[i]) + '</li>');
+		}
+		html.push('</ul>');
+	}
+	if (decomp) {
+		related.unshift(decomp);
+	}
+	if (related.length) {
+		html.push('<h2>' + _('h-related') + '</h2>');
+		html.push('<ul>');
+		for (i = 0; i < related.length; i++) {
+			html.push('<li>' + displaySequence(related[i], translateName) + '</li>');
 		}
 		html.push('</ul>');
 	}

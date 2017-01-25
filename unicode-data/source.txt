@@ -9,6 +9,7 @@ From http://www.unicode.org/Public/9.0.0/ucd/:
 * PropertyValueAliases.txt
 * ScriptExtensios.txt
 * Scripts.txt
+* SpecialCasing.txt
 * StandardizedVariants.txt
 
 From http://www.unicode.org/Public/emoji/4.0/:

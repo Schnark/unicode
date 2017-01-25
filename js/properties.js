@@ -121,12 +121,40 @@ MapProperty.prototype.add = function (codepoint, property) {
 	}
 };
 
+MapProperty.prototype.addSequence = function (sequence) {
+	this.add(sequence.getBase(), sequence);
+};
+
 MapProperty.prototype.getProperty = function (codepoint) {
 	return this.data[codepoint] || (typeof this.fallback === 'function' ? this.fallback(codepoint) : this.fallback);
+};
+
+function CodepointSequence (seq, name, base) {
+	seq = seq.split(/\s+/);
+	this.name = name;
+	this.base = base || seq[0];
+	this.seq = seq.map(toNumber);
+}
+
+CodepointSequence.prototype.getName = function () {
+	return this.name;
+};
+
+CodepointSequence.prototype.getLength = function () {
+	return this.seq.length;
+};
+
+CodepointSequence.prototype.getBase = function () {
+	return this.base;
+};
+
+CodepointSequence.prototype.format = function (m, j) {
+	return this.seq.map(m).join(j || '');
 };
 
 global.CodepointList = CodepointList;
 global.EnumProperty = EnumProperty;
 global.MapProperty = MapProperty;
+global.CodepointSequence = CodepointSequence;
 
 })(window);

@@ -26,6 +26,7 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 	font-family: sans-serif;
 }
 </style>
+<style id="filter-style"></style>
 </head><body>
 <section id="page-loading">
 <img src="icons/icon-512.png">
@@ -47,12 +48,12 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 
 <section id="page-list-block" hidden>
 <header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1></header>
-<div></div>
+<div><input id="filter-blocks" data-l10n-id="filter-blocks"><div></div></div>
 </section>
 
 <section id="page-list-script" hidden>
 <header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1></header>
-<div></div>
+<div><input id="filter-scripts" data-l10n-id="filter-scripts"><div></div></div>
 </section>
 
 <section id="page-list-chars" hidden>

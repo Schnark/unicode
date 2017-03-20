@@ -116,8 +116,9 @@ function getListHtml (list, skip, max) {
 		if (all > skip && all - skip <= max) {
 			html.push(
 				'<li data-codepoint="' + codepoint + '" class="click-char gc-' + gc +
-				' age-' + unicode.getAge(codepoint).replace('.', '-') +  '"><span class="char">' +
-				unicode.getDisplay(codepoint) + '</span></li>'
+				' age-' + unicode.getAge(codepoint).replace('.', '-') +
+				'" title="' + (unicode.getNames(codepoint)[0] || '') + '">' +
+				'<span class="char">' + unicode.getDisplay(codepoint) + '</span></li>'
 			);
 		}
 	});
@@ -183,7 +184,8 @@ function showBlocks (el) {
 	var html = [];
 	html.push('<ul class="link-list">');
 	unicode.getBlockNames().forEach(function (name) {
-		html.push('<li class="click-block" data-name="' + name + '">' +
+		html.push('<li class="click-block" data-name="' + name + '" ' +
+			'data-filter-name="' + unicode.normalizeForSearch(name) + '">' +
 			name + ' (' + unicode.getBlockChars(name).length + ')</li>');
 	});
 	html.push('</ul>');
@@ -202,7 +204,9 @@ function showScripts (el) {
 		} else {
 			l = l[0];
 		}
-		html.push('<li class="click-script" data-name="' + name + '">' + name + ' (' + l + ')</li>');
+		html.push('<li class="click-script" data-name="' + name + '" ' +
+			'data-filter-name="' + unicode.normalizeForSearch(name) + '">' +
+			name + ' (' + l + ')</li>');
 	});
 	html.push('</ul>');
 	el.innerHTML = html.join('');
@@ -292,9 +296,9 @@ function displayList (list) {
 	if (list) {
 		if (needsInit[list]) {
 			if (list === 'block') {
-				showBlocks(pages.list.block.getElementsByTagName('div')[0]);
+				showBlocks(pages.list.block.getElementsByTagName('div')[1]);
 			} else if (list === 'script') {
-				showScripts(pages.list.script.getElementsByTagName('div')[0]);
+				showScripts(pages.list.script.getElementsByTagName('div')[1]);
 			}
 			needsInit[list] = false;
 		}
@@ -355,97 +359,140 @@ function displayChar (codepoint) {
 	scrollTop();
 }
 
-inputs.search.addEventListener('keypress', function (e) {
-	var val;
-	if (e.which === 13) {
-		val = inputs.search.value;
-		if (val) {
-			inputs.search.blur();
-			displayListResult('search', val);
+function bindFilterInput (input, callback, delay) {
+	var timeout;
+	input.addEventListener('keyup', function () {
+		if (timeout) {
+			clearTimeout(timeout);
 		}
-	}
-}, false);
+		timeout = setTimeout(function () {
+			timeout = false;
+			callback(input.value);
+		}, delay);
+	});
+	return function () {
+		input.value = '';
+		callback('');
+	};
+}
 
-document.addEventListener('click', function (e) {
-	if (e.button !== 0) {
-		return;
+function generateFilterCSS (filter) {
+	filter = unicode.normalizeForSearch(filter);
+	if (filter) {
+		return '.link-list li:not([data-filter-name*="' + filter + '"]){display:none;}';
 	}
-	var el = e.target, id = el.id, cls = el.className.replace(/ .*/, ''), val;
-	if (cls === 'char') {
-		el = el.parentNode;
-		cls = el.className.replace(/ .*/, '');
+	return '';
+}
+
+function enableFilters () {
+	var reset1, reset2, styleSheet = document.getElementById('filter-style');
+	function updateCSS (filter) {
+		styleSheet.textContent = generateFilterCSS(filter);
 	}
-	switch (id) {
-	case 'button-blocks':
-		displayList('block');
-		return;
-	case 'button-scripts':
-		displayList('script');
-		return;
-	case 'button-chars':
-		displayList('chars');
-		return;
-	case 'button-search':
-		displayList('search');
-		return;
-	case 'button-fonts':
-		displayFonts();
-		return;
-	case 'button-about':
-		displayAbout();
-		return;
-	case 'button-chars-go':
-		val = inputs.chars.value;
-		if (val) {
-			displayListResult('chars', val);
+	reset1 = bindFilterInput(document.getElementById('filter-blocks'), updateCSS, 1000);
+	reset2 = bindFilterInput(document.getElementById('filter-scripts'), updateCSS, 1000);
+	return function () {
+		reset1();
+		reset2();
+	};
+}
+
+function initEvents () {
+	var resetFilters = enableFilters();
+
+	inputs.search.addEventListener('keypress', function (e) {
+		var val;
+		if (e.which === 13) {
+			val = inputs.search.value;
+			if (val) {
+				inputs.search.blur();
+				displayListResult('search', val);
+			}
 		}
-		return;
-	case 'button-search-go':
-		val = inputs.search.value;
-		if (val) {
-			displayListResult('search', val);
+	});
+
+	document.addEventListener('click', function (e) {
+		if (e.button !== 0) {
+			return;
 		}
-		return;
-	case 'button-copy':
-		document.getElementById('input-chars').value += currentChar;
-	}
-	switch (cls) {
-	case 'back-main':
-		displayMain();
-		return;
-	case 'back-about':
-		displayAbout(true);
-		return;
-	case 'back-list':
-		displayList();
-		return;
-	case 'back-result':
-		displayListResult();
-		return;
-	case 'click-block':
-		displayListResult('block', el.dataset.name, el.dataset.skip);
-		return;
-	case 'click-script':
-		displayListResult('script', el.dataset.name, el.dataset.skip);
-		return;
-	case 'click-gc':
-		displayListResult('gc', el.dataset.name, el.dataset.skip);
-		return;
-	case 'click-age':
-		displayListResult('age', el.dataset.name, el.dataset.skip);
-		return;
-	case 'click-char':
-		displayChar(el.dataset.codepoint);
-		return;
-	case 'font-load':
-		el.style.display = 'none';
-		addWebfonts(el.dataset.name);
-		return;
-	case 'font-toggle':
-		toggleFont();
-		return;
-	}
-}, false);
+		var el = e.target, id = el.id, cls = el.className.replace(/ .*/, ''), val;
+		if (cls === 'char') {
+			el = el.parentNode;
+			cls = el.className.replace(/ .*/, '');
+		}
+		switch (id) {
+		case 'button-blocks':
+			displayList('block');
+			return;
+		case 'button-scripts':
+			displayList('script');
+			return;
+		case 'button-chars':
+			displayList('chars');
+			return;
+		case 'button-search':
+			displayList('search');
+			return;
+		case 'button-fonts':
+			displayFonts();
+			return;
+		case 'button-about':
+			displayAbout();
+			return;
+		case 'button-chars-go':
+			val = inputs.chars.value;
+			if (val) {
+				displayListResult('chars', val);
+			}
+			return;
+		case 'button-search-go':
+			val = inputs.search.value;
+			if (val) {
+				displayListResult('search', val);
+			}
+			return;
+		case 'button-copy':
+			document.getElementById('input-chars').value += currentChar;
+		}
+		switch (cls) {
+		case 'back-main':
+			displayMain();
+			resetFilters();
+			return;
+		case 'back-about':
+			displayAbout(true);
+			return;
+		case 'back-list':
+			displayList();
+			return;
+		case 'back-result':
+			displayListResult();
+			return;
+		case 'click-block':
+			displayListResult('block', el.dataset.name, el.dataset.skip);
+			return;
+		case 'click-script':
+			displayListResult('script', el.dataset.name, el.dataset.skip);
+			return;
+		case 'click-gc':
+			displayListResult('gc', el.dataset.name, el.dataset.skip);
+			return;
+		case 'click-age':
+			displayListResult('age', el.dataset.name, el.dataset.skip);
+			return;
+		case 'click-char':
+			displayChar(el.dataset.codepoint);
+			return;
+		case 'font-load':
+			el.style.display = 'none';
+			addWebfonts(el.dataset.name);
+			return;
+		case 'font-toggle':
+			toggleFont();
+			return;
+		}
+	});
+}
 
 function toggleFont (state) {
 	var spans = document.getElementsByClassName('font-toggle'), i;
@@ -480,8 +527,9 @@ function init () {
 		document.documentElement.lang = document.webL10n.getLanguage();
 		document.documentElement.dir = document.webL10n.getDirection();
 		checkDone();
-	}, false);
+	});
 	unicode.generateData(checkDone);
+	initEvents();
 }
 
 init();

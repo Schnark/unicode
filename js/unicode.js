@@ -189,7 +189,7 @@ function generateUnicodeData (data) {
 		if (data[i][13]) {
 			store.simpleCase.addSequence(new CodepointSequence(data[i][13], 'lowercase', data[i][0]));
 		}
-		if (data[i][14] && data[i][14] !== data[i][12]) {
+		if (data[i][14] && data[i][14] !== data[i][12] && data[i][14] !== data[i][0]) {
 			store.simpleCase.addSequence(new CodepointSequence(data[i][14], 'titlecase', data[i][0]));
 		}
 	}
@@ -387,17 +387,20 @@ function getExternal (codepoint) {
 	};
 }
 
-function normalize (name) {
+function normalizeForSearch (name) {
 	return name.toUpperCase().replace(/[^A-Z0-9]+/g, '');
 }
 
 function searchForName (search, callback, limit) {
 	var result = new CodepointList(), blocks, i, c;
 	limit = limit || Infinity;
-	search = normalize(search);
+	search = normalizeForSearch(search);
 	blocks = unicode.getBlockNames();
 	i = 0;
 	c = 0;
+	function matchesArray (array, search) {
+		return array.map(normalizeForSearch).join('\n').indexOf(search) > -1;
+	}
 	function next () {
 		var block = blocks[i];
 		if (!block) {
@@ -408,7 +411,13 @@ function searchForName (search, callback, limit) {
 			if (c >= limit) {
 				return;
 			}
-			if (unicode.getNames(codepoint).map(normalize).join('\n').indexOf(search) > -1) {
+			if (
+				matchesArray(unicode.getNames(codepoint), search) ||
+				matchesArray(unicode.getSequences(codepoint).map(function (s) {
+					return s.getName();
+				}), search) ||
+				matchesArray([unicode.getHex(codepoint)], search)
+			) {
 				c++;
 				result.add(hex(codepoint));
 			}
@@ -461,7 +470,8 @@ return {
 	getCasing: getCasing,
 	getExternal: getExternal,
 	searchForName: searchForName,
-	getCodepoints: getCodepoints
+	getCodepoints: getCodepoints,
+	normalizeForSearch: normalizeForSearch
 };
 
 })();

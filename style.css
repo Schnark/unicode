@@ -1,5 +1,5 @@
 body {
-	font-family: sans-serif, "Noto Emoji", "EmojiOne";
+	font-family: sans-serif;
 }
 
 #page-loading img {
@@ -55,7 +55,6 @@ header {
 	width: 1.5em;
 	height: 1.5em;
 	line-height: 1.5;
-	cursor: pointer;
 	color: white;
 	text-align: center;
 	font-weight: bold;
@@ -299,4 +298,15 @@ input:not([type]) {
 
 textarea {
 	height: 3em;
+}
+
+button,
+.icon-left,
+.icon-right,
+.click-block,
+.click-script,
+.click-age,
+.click-gc,
+.click-char {
+	cursor: pointer;
 }

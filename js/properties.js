@@ -68,6 +68,10 @@ CodepointList.prototype.contains = function (codepoint) {
 	return false;
 };
 
+CodepointList.prototype.getMax = function () {
+	return this.list.length ? this.list[this.list.length - 1][1] : -1;
+};
+
 function EnumProperty (fallback) {
 	this.properties = [];
 	this.data = {};

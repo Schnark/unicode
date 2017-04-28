@@ -1,247 +1,20 @@
-/*global unicode, webfonts, _ */
+/*global unicode, display, webfonts */
 (function () {
 "use strict";
-
-function displaySequence (sequence, translate) {
-	var name = sequence.getName();
-	if (translate) {
-		name = translate(name);
-	}
-	return [
-		'<span class="font-support">' + sequence.format(unicode.getChar) + '</span>',
-		' (',
-		name + '; ',
-		sequence.format(function (codepoint) {
-			return '<span data-codepoint="' + codepoint + '" class="click-char">' +
-				unicode.getHex(codepoint) + '</span>';
-		}, ', '),
-		sequence.getLength() > 1 ?
-			': <span class="font-support">' + sequence.format(unicode.getDisplay, ' ') + '</span>' :
-			'',
-		')'
-	].join('');
-}
-
-function showCharacter (el, codepoint) {
-	function linkScript (script) {
-		return '<span data-name="' + script + '" class="click-script">' + script + '</span>';
-	}
-
-	function translateName (name) {
-		return _('related-' + name);
-	}
-
-	var html = [], i,
-		names = unicode.getNames(codepoint),
-		hex = unicode.getHex(codepoint),
-		display = unicode.getDisplay(codepoint),
-		gc = unicode.getGC(codepoint),
-		age = unicode.getAge(codepoint),
-		block = unicode.getBlock(codepoint),
-		script = unicode.getScript(codepoint),
-		sequences = unicode.getSequences(codepoint),
-		decomp = unicode.getDecomposition(codepoint),
-		casing = unicode.getCasing(codepoint),
-		related = casing.slice(),
-		external = unicode.getExternal(codepoint);
-	if (names[0]) {
-		html.push('<h1>' + names[0] + '</h1>');
-	}
-	html.push('<span class="char font-support">' + display + '</span>');
-	html.push('<ul>');
-	html.push('<li class="alt-name">' + hex + '</li>');
-	for (i = 1; i < names.length; i++) {
-		html.push('<li class="alt-name">' + names[i] + '</li>');
-	}
-	html.push('</ul>');
-	html.push('<h2>' + _('h-props') + '</h2>');
-	html.push('<ul>');
-	html.push('<li>' + _('gc', {gc: _('gc-' + gc.toLowerCase())}) + '</li>');
-	html.push('<li>' + _('age', {a: age}) + '</li>');
-	html.push('<li><span data-name="' + block + '" class="click-block">' + _('block', {b: block}) + '</span></li>');
-	html.push('<li>' + _('script', {s:
-		linkScript(script[0]) + (script[1].length ? ' (' + script[1].map(linkScript).join(', ') + ')' : '')
-	}) + '</li>');
-	html.push('</ul>');
-	if (sequences.length) {
-		html.push('<h2>' + _('h-seq') + '</h2>');
-		html.push('<ul>');
-		for (i = 0; i < sequences.length; i++) {
-			html.push('<li>' + displaySequence(sequences[i]) + '</li>');
-		}
-		html.push('</ul>');
-	}
-	if (decomp) {
-		related.unshift(decomp);
-	}
-	if (related.length) {
-		html.push('<h2>' + _('h-related') + '</h2>');
-		html.push('<ul>');
-		for (i = 0; i < related.length; i++) {
-			html.push('<li>' + displaySequence(related[i], translateName) + '</li>');
-		}
-		html.push('</ul>');
-	}
-	html.push('<h2>' + _('h-ext') + '</h2>');
-	html.push('<ul>');
-	for (i in external) {
-		if (external.hasOwnProperty(i)) {
-			html.push('<li><a href="' + external[i] + '" target="_blank">' + i + '</a></li>');
-		}
-	}
-	html.push('</ul>');
-	if (codepoint > 0) {
-		html.push('<input type="button" class="click-char" data-codepoint="' +
-			(codepoint - 1) + '" value="' + _('prev-char') + '">');
-	}
-	html.push('<input type="button" id="button-copy" value="' + _('button-copy') + '">');
-	if (codepoint < 0x10FFFF) {
-		html.push('<input type="button" class="click-char" data-codepoint="' +
-			(Number(codepoint) + 1) + '" value="' + _('next-char') + '">');
-	}
-	el.innerHTML = html.join('');
-}
-
-function getListHtml (list, skip, max) {
-	var html = [], count = 0, all = 0;
-	skip = Number(skip) || 0;
-	max = max || 2048;
-	html.push('<ul class="char-list font-support">');
-	list.forEach(function (codepoint) {
-		var gc = unicode.getGC(codepoint).toLowerCase();
-		if (gc !== 'cn') {
-			count++;
-		}
-		all++;
-		if (all > skip && all - skip <= max) {
-			html.push(
-				'<li data-codepoint="' + codepoint + '" class="click-char gc-' + gc +
-				' age-' + unicode.getAge(codepoint).replace('.', '-') +
-				'" title="' + (unicode.getNames(codepoint)[0] || '') + '">' +
-				'<span class="char">' + unicode.getDisplay(codepoint) + '</span></li>'
-			);
-		}
-	});
-	html.push('</ul>');
-	return [html.join(''), count, list.length,
-		skip ? Math.max(0, skip - max) : undefined, (all - skip > max) ? skip + max : undefined];
-}
-
-function makeNextPrev (name, skip, type, dir) {
-	if (skip === undefined) {
-		return '';
-	}
-	return '<p style="clear: both;"><input type="button" class="click-' + type +
-		'" data-name="' + name + '" data-skip="' + skip + '" value="' +
-		(dir ? _('next-slice') : _('prev-slice')) + '"></p>';
-}
-
-function showBlock (el, name, skip) {
-	var html = [], data = getListHtml(unicode.getBlockChars(name), skip);
-	html.push('<h1>' + name + '</h1>');
-	html.push('<p>' + data[1] + '/' + data[2] + '</p>');
-	html.push(makeNextPrev(name, data[3], 'block'));
-	html.push(data[0]);
-	html.push(makeNextPrev(name, data[4], 'block', true));
-	el.innerHTML = html.join('');
-}
-
-function showScript (el, name, skip) {
-	var html = [], lists = unicode.getScriptChars(name), data;
-	html.push('<h1>' + name + '</h1>');
-	data = getListHtml(lists[0], skip);
-	html.push(makeNextPrev(name, data[3], 'script'));
-	html.push(data[0]);
-	html.push(makeNextPrev(name, data[4], 'script', true));
-	if (lists[1].length) {
-		html.push('<h2 style="clear: both;">' + _('h-add') + '</h2>');
-		html.push(getListHtml(lists[1], 0, Infinity)[0]);
-	}
-	el.innerHTML = html.join('');
-}
-
-function showGC (el, name, skip) {
-	var html = [], data = getListHtml(unicode.getGcChars(name), skip);
-	html.push('<h1>' + _('gc-' + name.toLowerCase()) + '</h1>');
-	html.push('<p>' + data[2] + '</p>');
-	html.push(makeNextPrev(name, data[3], 'gc'));
-	html.push(data[0]);
-	html.push(makeNextPrev(name, data[4], 'gc', true));
-	el.innerHTML = html.join('');
-}
-
-function showAge (el, name, skip) {
-	var html = [], data = getListHtml(unicode.getAgeChars(name), skip);
-	html.push('<h1>' + name + '</h1>');
-	html.push('<p>' + data[2] + '</p>');
-	html.push(makeNextPrev(name, data[3], 'age'));
-	html.push(data[0]);
-	html.push(makeNextPrev(name, data[4], 'age', true));
-	el.innerHTML = html.join('');
-}
-
-function showBlocks (el) {
-	var html = [];
-	html.push('<ul class="link-list">');
-	unicode.getBlockNames().forEach(function (name) {
-		html.push('<li class="click-block" data-name="' + name + '" ' +
-			'data-filter-name="' + unicode.normalizeForSearch(name) + '">' +
-			name + ' (' + unicode.getBlockChars(name).length + ')</li>');
-	});
-	html.push('</ul>');
-	el.innerHTML = html.join('');
-}
-
-function showScripts (el) {
-	var html = [];
-	html.push('<ul class="link-list">');
-	unicode.getScriptNames().forEach(function (name) {
-		var l = unicode.getScriptChars(name).map(function (list) {
-			return list.length;
-		});
-		if (l[1]) {
-			l = l.join('+');
-		} else {
-			l = l[0];
-		}
-		html.push('<li class="click-script" data-name="' + name + '" ' +
-			'data-filter-name="' + unicode.normalizeForSearch(name) + '">' +
-			name + ' (' + l + ')</li>');
-	});
-	html.push('</ul>');
-	el.innerHTML = html.join('');
-}
-
-function showCharsFromString (el, string) {
-	var html = [];
-	html.push('<p class="font-support">' + string.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</p>');
-	html.push(getListHtml(unicode.getCodepoints(string), 0, Infinity)[0]);
-	el.innerHTML = html.join('');
-}
-
-function showNameSearch (el, search) {
-	el.innerHTML = _('search-wait');
-	unicode.searchForName(search, function (result) {
-		var html = [];
-		html.push('<p>' + _('search-result', {n: result.length}) + '</p>');
-		html.push(getListHtml(result)[0]);
-		el.innerHTML = html.join('');
-	}, 2048);
-}
 
 var currentView = document.getElementById('page-loading'), views = {
 	main: document.getElementById('page-main'),
 	list: document.getElementById('page-list'),
 	result: document.getElementById('page-result'),
 	char: document.getElementById('page-char'),
-	fonts: document.getElementById('page-fonts'),
-	about: document.getElementById('page-about')
+	fonts: document.getElementById('page-fonts')
 }, pages = {
 	list: {
 		block: document.getElementById('page-list-block'),
 		script: document.getElementById('page-list-script'),
 		chars: document.getElementById('page-list-chars'),
-		search: document.getElementById('page-list-search')
+		search: document.getElementById('page-list-search'),
+		about: document.getElementById('page-about')
 	},
 	result: {
 		block: document.getElementById('page-result-block'),
@@ -257,7 +30,7 @@ var currentView = document.getElementById('page-loading'), views = {
 }, needsInit = {
 	block: true,
 	script: true
-}, currentChar = '';
+}, currentChar = '', backToMain = true;
 
 function scrollTop () {
 	var divs = currentView.getElementsByTagName('div'), i;
@@ -267,10 +40,12 @@ function scrollTop () {
 }
 
 function displayMain () {
+	backToMain = false;
 	currentView.hidden = true;
 	currentView = views.main;
 	currentView.hidden = false;
 	scrollTop();
+	setHash('');
 }
 
 function displayFonts () {
@@ -278,27 +53,19 @@ function displayFonts () {
 	currentView = views.fonts;
 	currentView.hidden = false;
 	scrollTop();
-}
-
-function displayAbout (noScroll) {
-	currentView.hidden = true;
-	currentView = views.about;
-	currentView.hidden = false;
-	if (!noScroll) {
-		scrollTop();
-	}
+	setHash('fonts');
 }
 
 function displayList (list) {
 	currentView.hidden = true;
 	currentView = views.list;
 	currentView.hidden = false;
-	if (list) {
+	if (list && pages.list[list]) {
 		if (needsInit[list]) {
 			if (list === 'block') {
-				showBlocks(pages.list.block.getElementsByTagName('div')[1]);
+				display.showBlocks(pages.list.block.getElementsByTagName('div')[1]);
 			} else if (list === 'script') {
-				showScripts(pages.list.script.getElementsByTagName('div')[1]);
+				display.showScripts(pages.list.script.getElementsByTagName('div')[1]);
 			}
 			needsInit[list] = false;
 		}
@@ -306,12 +73,14 @@ function displayList (list) {
 		pages.list.script.hidden = true;
 		pages.list.chars.hidden = true;
 		pages.list.search.hidden = true;
+		pages.list.about.hidden = true;
 		pages.list[list].hidden = false;
 		scrollTop();
 		if (inputs[list]) {
 			inputs[list].focus();
 			inputs[list].select();
 		}
+		setHash(list);
 	}
 }
 
@@ -322,22 +91,25 @@ function displayListResult (list, search, skip) {
 	if (list) {
 		switch (list) {
 		case 'block':
-			showBlock(pages.result.block.getElementsByTagName('div')[0], search, skip);
+			display.showBlock(pages.result.block.getElementsByTagName('div')[0], search, skip);
 			break;
 		case 'script':
-			showScript(pages.result.script.getElementsByTagName('div')[0], search, skip);
+			display.showScript(pages.result.script.getElementsByTagName('div')[0], search, skip);
 			break;
 		case 'chars':
-			showCharsFromString(pages.result.chars.getElementsByTagName('div')[0], search);
+			display.showCharsFromString(pages.result.chars.getElementsByTagName('div')[0], search);
 			break;
 		case 'search':
-			showNameSearch(pages.result.search.getElementsByTagName('div')[0], search);
+			display.showNameSearch(pages.result.search.getElementsByTagName('div')[0], search, skip);
 			break;
 		case 'gc':
-			showGC(pages.result.gc.getElementsByTagName('div')[0], search, skip);
+			display.showGC(pages.result.gc.getElementsByTagName('div')[0], search, skip);
 			break;
 		case 'age':
-			showAge(pages.result.age.getElementsByTagName('div')[0], search, skip);
+			display.showAge(pages.result.age.getElementsByTagName('div')[0], search, skip);
+			break;
+		default:
+			return;
 		}
 		pages.result.block.hidden = true;
 		pages.result.script.hidden = true;
@@ -347,6 +119,7 @@ function displayListResult (list, search, skip) {
 		pages.result.age.hidden = true;
 		pages.result[list].hidden = false;
 		scrollTop();
+		setHash(list, search);
 	}
 }
 
@@ -354,9 +127,60 @@ function displayChar (codepoint) {
 	currentView.hidden = true;
 	currentView = views.char;
 	currentView.hidden = false;
-	showCharacter(views.char.getElementsByTagName('div')[0], codepoint);
+	display.showCharacter(views.char.getElementsByTagName('div')[0], codepoint);
 	currentChar = unicode.getChar(codepoint);
 	scrollTop();
+	setHash('char', codepoint);
+}
+
+function displayFromHash (hash) {
+	var pos = hash.indexOf('='), key, val;
+	if (pos === -1) {
+		key = hash;
+		val = '';
+	} else {
+		key = hash.slice(0, pos);
+		val = decodeURIComponent(hash.slice(pos + 1));
+	}
+	switch (key) {
+	case 'block':
+	case 'script':
+	case 'chars':
+	case 'search':
+	//should only be called with val
+	case 'gc':
+	case 'age':
+	//should never be called with val
+	case 'about':
+		if (val) {
+			displayListResult(key, val);
+		} else {
+			displayList(key);
+		}
+		return;
+	case 'char':
+		displayChar(val);
+		return;
+	case 'fonts':
+		displayFonts();
+		return;
+	default:
+		displayMain();
+	}
+}
+
+function setHash (key, val) {
+	var hash = key;
+	if (val) {
+		hash += '=' + encodeURIComponent(val);
+	}
+	if (hash || location.hash) {
+		if (history.replaceState) {
+			history.replaceState(null, '', '#' + hash);
+		} else {
+			location.hash = hash;
+		}
+	}
 }
 
 function bindFilterInput (input, callback, delay) {
@@ -400,9 +224,9 @@ function enableFilters () {
 function initEvents () {
 	var resetFilters = enableFilters();
 
-	inputs.search.addEventListener('keypress', function (e) {
+	inputs.search.addEventListener('keydown', function (e) {
 		var val;
-		if (e.which === 13) {
+		if (e.key === 'Enter' || e.which === 13) { //TODO drop which at some point
 			val = inputs.search.value;
 			if (val) {
 				inputs.search.blur();
@@ -410,6 +234,12 @@ function initEvents () {
 			}
 		}
 	});
+
+	/*window.addEventListener('popstate', function () {
+		if (location.hash) {
+			displayFromHash(location.hash.slice(1));
+		}
+	});*/
 
 	document.addEventListener('click', function (e) {
 		if (e.button !== 0) {
@@ -437,7 +267,7 @@ function initEvents () {
 			displayFonts();
 			return;
 		case 'button-about':
-			displayAbout();
+			displayList('about');
 			return;
 		case 'button-chars-go':
 			val = inputs.chars.value;
@@ -459,14 +289,19 @@ function initEvents () {
 			displayMain();
 			resetFilters();
 			return;
-		case 'back-about':
-			displayAbout(true);
-			return;
 		case 'back-list':
-			displayList();
+			if (backToMain) {
+				displayMain();
+			} else {
+				displayList();
+			}
 			return;
 		case 'back-result':
-			displayListResult();
+			if (backToMain) {
+				displayMain();
+			} else {
+				displayListResult();
+			}
 			return;
 		case 'click-block':
 			displayListResult('block', el.dataset.name, el.dataset.skip);
@@ -479,6 +314,9 @@ function initEvents () {
 			return;
 		case 'click-age':
 			displayListResult('age', el.dataset.name, el.dataset.skip);
+			return;
+		case 'click-search-page':
+			displayListResult('search', el.dataset.name, el.dataset.skip);
 			return;
 		case 'click-char':
 			displayChar(el.dataset.codepoint);
@@ -519,7 +357,11 @@ function init () {
 	function checkDone () {
 		todo--;
 		if (todo === 0) {
-			displayMain();
+			if (location.hash) {
+				displayFromHash(location.hash.slice(1));
+			} else {
+				displayMain();
+			}
 		}
 	}
 

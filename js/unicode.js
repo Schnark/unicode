@@ -1,10 +1,12 @@
 /*global CodepointList, EnumProperty, MapProperty, CodepointSequence, unicode: true */
 /*jshint bitwise: false*/
+//jscs:disable disallowYodaConditions
+//yes, I just should update jscs
 unicode =
 (function () {
 "use strict";
 
-var store = {};
+var store = {}, searchCache = {};
 
 function loadFile (name, callback) {
 	var xhr = new XMLHttpRequest();
@@ -15,6 +17,14 @@ function loadFile (name, callback) {
 	xhr.overrideMimeType('text/plain');
 	xhr.send();
 }
+
+/* not yet needed
+function unescapeHex (str) {
+	return str.replace(/\\x\{([0-9a-fA-F]+)\}/g, function (all, hex) {
+		return String.fromCharCode(parseInt(hex, 16));
+	});
+}
+*/
 
 function parseDataFile (content) {
 	var lines, i, line, pos, result = [];
@@ -27,6 +37,7 @@ function parseDataFile (content) {
 		}
 		line = line.trim();
 		if (line) {
+			//unescapeHex
 			result.push(line.split(/\s*;\s*/));
 		}
 	}
@@ -391,11 +402,25 @@ function normalizeForSearch (name) {
 	return name.toUpperCase().replace(/[^A-Z0-9]+/g, '');
 }
 
-function searchForName (search, callback, limit) {
-	var result = new CodepointList(), blocks, i, c;
-	limit = limit || Infinity;
+function searchForName (search, callback, limit, page) {
+	var key, result, start, blocks, i, c;
 	search = normalizeForSearch(search);
+	limit = limit || Infinity;
+	page = page || 0;
+	key = search + '|' + limit;
+	if (!searchCache[key]) {
+		searchCache[key] = [];
+	}
+	if (page < searchCache[key].length) {
+		callback(searchCache[key][page]);
+		return;
+	}
+	if (page > searchCache[key].length) {
+		throw 'Increase page numbers by 1 only!';
+	}
+	result = new CodepointList();
 	blocks = unicode.getBlockNames();
+	start = page ? searchCache[key][page - 1].getMax() + 1 : 0;
 	i = 0;
 	c = 0;
 	function matchesArray (array, search) {
@@ -404,11 +429,12 @@ function searchForName (search, callback, limit) {
 	function next () {
 		var block = blocks[i];
 		if (!block) {
+			searchCache[key].push(result);
 			callback(result);
 			return;
 		}
 		unicode.getBlockChars(block).forEach(function (codepoint) {
-			if (c >= limit) {
+			if (c >= limit || codepoint < start) {
 				return;
 			}
 			if (
@@ -424,6 +450,7 @@ function searchForName (search, callback, limit) {
 		});
 		i++;
 		if (c >= limit) {
+			searchCache[key].push(result);
 			callback(result);
 			return;
 		}

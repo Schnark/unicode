@@ -20,6 +20,7 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <script src="js/lib/l10n.js"></script>
 <script src="js/properties.js"></script>
 <script src="js/unicode.js"></script>
+<script src="js/display.js"></script>
 <script src="js/font.js"></script>
 <style id="font-style">
 .font-support {
@@ -72,68 +73,7 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 </div>
 </section>
 
-</div>
-<div id="page-result" hidden>
-
-<section id="page-result-block" hidden>
-<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1><span class="font-toggle font-none icon-right">F</span></header>
-<div></div>
-</section>
-
-<section id="page-result-script" hidden>
-<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1><span class="font-toggle font-none icon-right">F</span></header>
-<div></div>
-</section>
-
-<section id="page-result-chars" hidden>
-<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-chars">(page-chars)</h1><span class="font-toggle font-none icon-right">F</span></header>
-<div></div>
-</section>
-
-<section id="page-result-search" hidden>
-<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-search">(page-search)</h1><span class="font-toggle font-none icon-right">F</span></header>
-<div></div>
-</section>
-
-<section id="page-result-gc" hidden>
-<header><span class="back-about icon-left">‹</span><h1 data-l10n-id="page-gc">(page-gc)</h1><span class="font-toggle font-none icon-right">F</span></header>
-<div></div>
-</section>
-
-<section id="page-result-age" hidden>
-<header><span class="back-about icon-left">‹</span><h1 data-l10n-id="page-age">(page-age)</h1><span class="font-toggle font-none icon-right">F</span></header>
-<div></div>
-</section>
-
-</div>
-
-<section id="page-char" hidden>
-<header><span class="back-result icon-left">‹</span><h1 data-l10n-id="page-char">(page-char)</h1><span class="font-toggle font-none icon-right">F</span></header>
-<div></div>
-</section>
-
-<section id="page-fonts" hidden>
-<header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-fonts">(page-fonts)</h1></header>
-<div>
-<p data-l10n-id="explain-fonts">(explain-fonts)</p>
-<button class="font-load" data-name="notationalSystemsSymbols" data-l10n-id="font-notationalSystemsSymbols">(font-notationalSystemsSymbols)</button>
-<button class="font-load" data-name="europa1" data-l10n-id="font-europa1">(font-europa1)</button>
-<button class="font-load" data-name="europa2" data-l10n-id="font-europa2">(font-europa2)</button>
-<button class="font-load" data-name="middleEast1" data-l10n-id="font-middleEast1">(font-middleEast1)</button>
-<button class="font-load" data-name="middleEast2" data-l10n-id="font-middleEast2">(font-middleEast2)</button>
-<button class="font-load" data-name="cuneiformHieroglyphs" data-l10n-id="font-cuneiformHieroglyphs">(font-cuneiformHieroglyphs)</button>
-<button class="font-load" data-name="southCentralAsia1" data-l10n-id="font-southCentralAsia1">(font-southCentralAsia1)</button>
-<button class="font-load" data-name="southCentralAsia2" data-l10n-id="font-southCentralAsia2">(font-southCentralAsia2)</button>
-<button class="font-load" data-name="southCentralAsia3" data-l10n-id="font-southCentralAsia3">(font-southCentralAsia3)</button>
-<button class="font-load" data-name="southCentralAsia4" data-l10n-id="font-southCentralAsia4">(font-southCentralAsia4)</button>
-<button class="font-load" data-name="southeastAsia" data-l10n-id="font-southeastAsia">(font-southeastAsia)</button>
-<button class="font-load" data-name="indonesiaOceania" data-l10n-id="font-indonesiaOceania">(font-indonesiaOceania)</button>
-<button class="font-load" data-name="eastAsia" data-l10n-id="font-eastAsia">(font-eastAsia)</button>
-<button class="font-load" data-name="africa" data-l10n-id="font-africa">(font-africa)</button>
-<button class="font-load" data-name="americas" data-l10n-id="font-americas">(font-americas)</button>
-</div>
-</section>
-
+<!--"About" is a list, since it includes the lists for age and gc-->
 <section id="page-about" hidden>
 <header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-about">(page-about)</h1></header>
 <div>
@@ -211,5 +151,68 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <p data-l10n-id="about-license"></p>
 </div>
 </section>
+
+</div>
+<div id="page-result" hidden>
+
+<section id="page-result-block" hidden>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-blocks">(page-blocks)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+<section id="page-result-script" hidden>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-scripts">(page-scripts)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+<section id="page-result-chars" hidden>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-chars">(page-chars)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+<section id="page-result-search" hidden>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-search">(page-search)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+<section id="page-result-gc" hidden>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-gc">(page-gc)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+<section id="page-result-age" hidden>
+<header><span class="back-list icon-left">‹</span><h1 data-l10n-id="page-age">(page-age)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+</div>
+
+<section id="page-char" hidden>
+<header><span class="back-result icon-left">‹</span><h1 data-l10n-id="page-char">(page-char)</h1><span class="font-toggle font-none icon-right">F</span></header>
+<div></div>
+</section>
+
+<section id="page-fonts" hidden>
+<header><span class="back-main icon-left">‹</span><h1 data-l10n-id="page-fonts">(page-fonts)</h1></header>
+<div>
+<p data-l10n-id="explain-fonts">(explain-fonts)</p>
+<button class="font-load" data-name="notationalSystemsSymbols" data-l10n-id="font-notationalSystemsSymbols">(font-notationalSystemsSymbols)</button>
+<button class="font-load" data-name="europa1" data-l10n-id="font-europa1">(font-europa1)</button>
+<button class="font-load" data-name="europa2" data-l10n-id="font-europa2">(font-europa2)</button>
+<button class="font-load" data-name="middleEast1" data-l10n-id="font-middleEast1">(font-middleEast1)</button>
+<button class="font-load" data-name="middleEast2" data-l10n-id="font-middleEast2">(font-middleEast2)</button>
+<button class="font-load" data-name="cuneiformHieroglyphs" data-l10n-id="font-cuneiformHieroglyphs">(font-cuneiformHieroglyphs)</button>
+<button class="font-load" data-name="southCentralAsia1" data-l10n-id="font-southCentralAsia1">(font-southCentralAsia1)</button>
+<button class="font-load" data-name="southCentralAsia2" data-l10n-id="font-southCentralAsia2">(font-southCentralAsia2)</button>
+<button class="font-load" data-name="southCentralAsia3" data-l10n-id="font-southCentralAsia3">(font-southCentralAsia3)</button>
+<button class="font-load" data-name="southCentralAsia4" data-l10n-id="font-southCentralAsia4">(font-southCentralAsia4)</button>
+<button class="font-load" data-name="southeastAsia" data-l10n-id="font-southeastAsia">(font-southeastAsia)</button>
+<button class="font-load" data-name="indonesiaOceania" data-l10n-id="font-indonesiaOceania">(font-indonesiaOceania)</button>
+<button class="font-load" data-name="eastAsia" data-l10n-id="font-eastAsia">(font-eastAsia)</button>
+<button class="font-load" data-name="africa" data-l10n-id="font-africa">(font-africa)</button>
+<button class="font-load" data-name="americas" data-l10n-id="font-americas">(font-americas)</button>
+</div>
+</section>
+
 <script src="js/app.js"></script>
 </body></html>

@@ -2,7 +2,7 @@
 (function (worker) {
 "use strict";
 
-var VERSION = 'v1.4',
+var VERSION = 'v1.5',
 	FILES = [
 		'index.html',
 		'style.css',
@@ -24,6 +24,7 @@ var VERSION = 'v1.4',
 		'unicode-data/NameAliases.txt',
 		'unicode-data/NamedSequences.txt',
 		'unicode-data/PropertyValueAliases.txt',
+		'unicode-data/RelatedChars.txt',
 		'unicode-data/ScriptExtensions.txt',
 		'unicode-data/Scripts.txt',
 		'unicode-data/SpecialCasing.txt',

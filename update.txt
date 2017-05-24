@@ -1,5 +1,5 @@
 To update for a new Unicode version:
-* Update all files in unicode-data/. The sources are given in unicode-data/source.txt. Don't forget to update this file, too, and add the modifications to UnicodeData.
-* If there are new or updated ranges with a algorithmically defined NAME, update the function nameFallback in js/unicode.js.
+* Update all files in unicode-data/. The sources are given in unicode-data/source.txt. Don't forget to update that file, too, add the modifications to UnicodeData, and create RelatedChars.
+* If there are new or updated ranges with an algorithmically defined NAME, update the function nameFallback in js/unicode.js.
 * Add the new version to the list on the "About" page in index.html.
 * Add a new class for that version to style.css, update the colors for the other classes to look nice.

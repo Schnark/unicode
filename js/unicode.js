@@ -131,6 +131,14 @@ function generateAliases (data) {
 	}
 }
 
+function generateRelated (data) {
+	var i;
+	store.related = new MapProperty([]);
+	for (i = 0; i < data.length; i++) {
+		store.related.addSequence(new CodepointSequence(data[i][1], 'other', data[i][0]));
+	}
+}
+
 function generateScripts (data) {
 	var i;
 	store.scripts = new EnumProperty('Unknown');
@@ -207,7 +215,7 @@ function generateUnicodeData (data) {
 }
 
 function generateData (callback) {
-	var todo = 9;
+	var todo = 10;
 	function checkDone () {
 		todo--;
 		if (todo === 0) {
@@ -240,6 +248,10 @@ function generateData (callback) {
 	});
 	loadFile('NameAliases', function (data) {
 		generateAliases(data);
+		checkDone();
+	});
+	loadFile('RelatedChars', function (data) {
+		generateRelated(data);
 		checkDone();
 	});
 	loadFile('Scripts', function (data) {
@@ -386,6 +398,10 @@ function getCasing (codepoint) {
 	return all;
 }
 
+function getRelated (codepoint) {
+	return store.related.getProperty(codepoint);
+}
+
 function getExternal (codepoint) {
 	return {
 		'Unicode': 'http://unicode.org/cldr/utility/character.jsp?a=' + hex(codepoint),
@@ -495,6 +511,7 @@ return {
 	getScript: getScript,
 	getDecomposition: getDecompostion,
 	getCasing: getCasing,
+	getRelated: getRelated,
 	getExternal: getExternal,
 	searchForName: searchForName,
 	getCodepoints: getCodepoints,

@@ -43,7 +43,7 @@ function showCharacter (el, codepoint) {
 		sequences = unicode.getSequences(codepoint),
 		decomp = unicode.getDecomposition(codepoint),
 		casing = unicode.getCasing(codepoint),
-		related = casing.slice(),
+		related = unicode.getRelated(codepoint),
 		external = unicode.getExternal(codepoint);
 	if (names[0]) {
 		html.push('<h1>' + names[0] + '</h1>');
@@ -72,6 +72,7 @@ function showCharacter (el, codepoint) {
 		}
 		html.push('</ul>');
 	}
+	related = casing.concat(related);
 	if (decomp) {
 		related.unshift(decomp);
 	}

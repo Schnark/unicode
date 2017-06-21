@@ -117,51 +117,54 @@ li.age-2-0 {
 	border-color: hsl(0,6%,10%);
 }
 li.age-2-1 {
-	border-color: hsl(0,12%,20%);
+	border-color: hsl(0,11%,20%);
 }
 li.age-3-0 {
-	border-color: hsl(0,18%,30%);
+	border-color: hsl(0,17%,30%);
 }
 li.age-3-1 {
-	border-color: hsl(0,24%,40%);
+	border-color: hsl(0,22%,40%);
 }
 li.age-3-2 {
-	border-color: hsl(0,29%,50%);
+	border-color: hsl(0,28%,50%);
 }
 li.age-4-0 {
-	border-color: hsl(0,35%,50%);
+	border-color: hsl(0,33%,50%);
 }
 li.age-4-1 {
-	border-color: hsl(0,41%,50%);
+	border-color: hsl(0,39%,50%);
 }
 li.age-5-0 {
-	border-color: hsl(0,47%,50%);
+	border-color: hsl(0,44%,50%);
 }
 li.age-5-1 {
-	border-color: hsl(0,53%,50%);
+	border-color: hsl(0,50%,50%);
 }
 li.age-5-2 {
-	border-color: hsl(0,59%,50%);
+	border-color: hsl(0,56%,50%);
 }
 li.age-6-0 {
-	border-color: hsl(0,65%,50%);
+	border-color: hsl(0,61%,50%);
 }
 li.age-6-1 {
-	border-color: hsl(0,71%,50%);
+	border-color: hsl(0,67%,50%);
 }
 li.age-6-2 {
-	border-color: hsl(0,77%,50%);
+	border-color: hsl(0,72%,50%);
 }
 li.age-6-3 {
-	border-color: hsl(0,83%,50%);
+	border-color: hsl(0,78%,50%);
 }
 li.age-7-0 {
-	border-color: hsl(0,88%,50%);
+	border-color: hsl(0,83%,50%);
 }
 li.age-8-0 {
-	border-color: hsl(0,94%,50%);
+	border-color: hsl(0,89%,50%);
 }
 li.age-9-0 {
+	border-color: hsl(0,94%,50%);
+}
+li.age-10-0 {
 	border-color: hsl(0,100%,50%);
 }
 

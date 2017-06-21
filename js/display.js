@@ -88,7 +88,7 @@ function showCharacter (el, codepoint) {
 	html.push('<ul>');
 	for (i in external) {
 		if (external.hasOwnProperty(i)) {
-			html.push('<li><a href="' + external[i] + '" target="_blank">' + i + '</a></li>');
+			html.push('<li><a href="' + external[i] + '" target="_blank" rel="noopener">' + i + '</a></li>');
 		}
 	}
 	html.push('</ul>');

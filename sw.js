@@ -2,7 +2,7 @@
 (function (worker) {
 "use strict";
 
-var VERSION = 'v1.5',
+var VERSION = 'v1.6',
 	FILES = [
 		'index.html',
 		'style.css',
@@ -19,6 +19,7 @@ var VERSION = 'v1.5',
 		'unicode-data/Blocks.txt',
 		'unicode-data/DerivedAge.txt',
 		'unicode-data/emoji-sequences.txt',
+		'unicode-data/emoji-variation-sequences.txt',
 		'unicode-data/emoji-zwj-sequences.txt',
 		'unicode-data/Jamo.txt',
 		'unicode-data/NameAliases.txt',

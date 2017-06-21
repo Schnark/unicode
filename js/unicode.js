@@ -18,13 +18,11 @@ function loadFile (name, callback) {
 	xhr.send();
 }
 
-/* not yet needed
 function unescapeHex (str) {
 	return str.replace(/\\x\{([0-9a-fA-F]+)\}/g, function (all, hex) {
 		return String.fromCharCode(parseInt(hex, 16));
 	});
 }
-*/
 
 function parseDataFile (content) {
 	var lines, i, line, pos, result = [];
@@ -37,8 +35,7 @@ function parseDataFile (content) {
 		}
 		line = line.trim();
 		if (line) {
-			//unescapeHex
-			result.push(line.split(/\s*;\s*/));
+			result.push(line.split(/\s*;\s*/).map(unescapeHex));
 		}
 	}
 	return result;
@@ -60,11 +57,12 @@ function hex (codepoint) {
 function nameFallback (codepoint) {
 	if (
 		(0x3400 <= codepoint && codepoint <= 0x4DB5) ||
-		(0x4E00 <= codepoint && codepoint <= 0x9FD5) ||
+		(0x4E00 <= codepoint && codepoint <= 0x9FEA) ||
 		(0x20000 <= codepoint && codepoint <= 0x2A6D6) ||
 		(0x2A700 <= codepoint && codepoint <= 0x2B734) ||
 		(0x2B740 <= codepoint && codepoint <= 0x2B81D) ||
-		(0x2B820 <= codepoint && codepoint <= 0x2CEA1)
+		(0x2B820 <= codepoint && codepoint <= 0x2CEA1) ||
+		(0x2CEB0 <= codepoint && codepoint <= 0x2EBE0)
 	) {
 		return 'CJK UNIFIED IDEOGRAPH-' + hex(codepoint);
 	} else if (0xAC00 <= codepoint && codepoint <= 0xD7A3) {
@@ -97,7 +95,7 @@ function generateAge (data) {
 	}
 }
 
-function generateSequences (emoji1, emoji2, named, variants) {
+function generateSequences (emoji1, emoji2, emoji3, named, variants) {
 
 	var i;
 	store.sequences = new MapProperty([]);
@@ -106,6 +104,9 @@ function generateSequences (emoji1, emoji2, named, variants) {
 	}
 	for (i = 0; i < emoji2.length; i++) {
 		store.sequences.addSequence(new CodepointSequence(emoji2[i][0], emoji2[i][2]));
+	}
+	for (i = 0; i < emoji3.length; i++) {
+		store.sequences.addSequence(new CodepointSequence(emoji3[i][0], emoji3[i][1]));
 	}
 	for (i = 0; i < named.length; i++) {
 		store.sequences.addSequence(new CodepointSequence(named[i][1], named[i][0]));
@@ -234,10 +235,12 @@ function generateData (callback) {
 	});
 	loadFile('emoji-sequences', function (emoji1) {
 		loadFile('emoji-zwj-sequences', function (emoji2) {
-			loadFile('NamedSequences', function (named) {
-				loadFile('StandardizedVariants', function (variants) {
-					generateSequences(emoji1, emoji2, named, variants);
-					checkDone();
+			loadFile('emoji-variation-sequences', function (emoji3) {
+				loadFile('NamedSequences', function (named) {
+					loadFile('StandardizedVariants', function (variants) {
+						generateSequences(emoji1, emoji2, emoji3, named, variants);
+						checkDone();
+					});
 				});
 			});
 		});

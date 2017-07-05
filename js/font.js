@@ -3,7 +3,9 @@
 
 var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	//jscs:disable maximumLineLength
-	emojiOne: ['https://cdn.rawgit.com/Ranks/emojione/844221d8/extras/fonts/emojione-svg.woff', 0],
+	//emojiOne: ['https://cdn.rawgit.com/Ranks/emojione/844221d8/extras/fonts/emojione-svg.woff', 0],
+	twitterColorEmoji: ['https://cdn.rawgit.com/delan/charming/5d64c4fc/TwitterColorEmoji-SVGinOT.ttf', 0],
+	symbola: ['https://cdn.rawgit.com/delan/charming/5d64c4fc/Symbola.ttf', 1],
 
 	notoSans: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/hinted/NotoSans-Regular.ttf', 0],
 	notoArabic: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/hinted/NotoNaskhArabic-Regular.ttf', 0],
@@ -82,7 +84,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoShavian: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/unhinted/NotoSansShavian-Regular.ttf', 0],
 	notoSundanese: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/unhinted/NotoSansSundanese-Regular.ttf', 0],
 	notoSylotiNagri: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/unhinted/NotoSansSylotiNagri-Regular.ttf', 0],
-	notoSymbols: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/unhinted/NotoSansSymbols-Regular.ttf', 1], //prefer EmojiOne over NotoSymbols
+	notoSymbols: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/unhinted/NotoSansSymbols-Regular.ttf', 1], //prefer TwitterColorEmoji over NotoSymbols
 	notoSyriac: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/unhinted/NotoSansSyriacWestern-Regular.ttf', 0],
 	notoTagalog: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/unhinted/NotoSansTagalog-Regular.ttf', 0],
 	notoTagbanwa: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/unhinted/NotoSansTagbanwa-Regular.ttf', 0],
@@ -100,7 +102,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	//grouped like in the Unicode Standard
 	notationalSystemsSymbols: [
 		'notoSymbols',
-		'emojiOne'
+		'symbola',
+		'twitterColorEmoji'
 	],
 	europa1: [
 		'notoSans', //Latin, Cyrillic, Greek, Modifier letters, Combining marks

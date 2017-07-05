@@ -115,54 +115,66 @@ li.age-1-1 {
 }
 li.age-2-0 {
 	border-color: hsl(0,6%,10%);
+	border-style: dashed;
 }
 li.age-2-1 {
 	border-color: hsl(0,11%,20%);
+	border-style: dotted;
 }
 li.age-3-0 {
 	border-color: hsl(0,17%,30%);
 }
 li.age-3-1 {
 	border-color: hsl(0,22%,40%);
+	border-style: dashed;
 }
 li.age-3-2 {
 	border-color: hsl(0,28%,50%);
+	border-style: dotted;
 }
 li.age-4-0 {
 	border-color: hsl(0,33%,50%);
 }
 li.age-4-1 {
 	border-color: hsl(0,39%,50%);
+	border-style: dashed;
 }
 li.age-5-0 {
 	border-color: hsl(0,44%,50%);
+	border-style: dotted;
 }
 li.age-5-1 {
 	border-color: hsl(0,50%,50%);
 }
 li.age-5-2 {
 	border-color: hsl(0,56%,50%);
+	border-style: dashed;
 }
 li.age-6-0 {
 	border-color: hsl(0,61%,50%);
+	border-style: dotted;
 }
 li.age-6-1 {
 	border-color: hsl(0,67%,50%);
 }
 li.age-6-2 {
 	border-color: hsl(0,72%,50%);
+	border-style: dashed;
 }
 li.age-6-3 {
 	border-color: hsl(0,78%,50%);
+	border-style: dotted;
 }
 li.age-7-0 {
 	border-color: hsl(0,83%,50%);
 }
 li.age-8-0 {
 	border-color: hsl(0,89%,50%);
+	border-style: dashed;
 }
 li.age-9-0 {
 	border-color: hsl(0,94%,50%);
+	border-style: dotted;
 }
 li.age-10-0 {
 	border-color: hsl(0,100%,50%);

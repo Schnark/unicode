@@ -45,6 +45,11 @@ header {
 	line-height: 2;
 	overflow: hidden;
 	position: relative;
+	/* using .preventDefault() on dblclick doesn't work */
+	-moz-user-select: none;
+	-mw-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 .icon-left,

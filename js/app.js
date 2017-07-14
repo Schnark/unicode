@@ -30,7 +30,7 @@ var currentView = document.getElementById('page-loading'), views = {
 }, needsInit = {
 	block: true,
 	script: true
-}, currentChar = '', backToMain = true;
+}, currentChar = '', currentHash = '', backToMain = true;
 
 function scrollTop () {
 	var divs = currentView.getElementsByTagName('div'), i;
@@ -174,11 +174,15 @@ function setHash (key, val) {
 	if (val) {
 		hash += '=' + encodeURIComponent(val);
 	}
-	if (hash || location.hash) {
+	currentHash = hash;
+}
+
+function updateHash () {
+	if (currentHash || location.hash) {
 		if (history.replaceState) {
-			history.replaceState(null, '', '#' + hash);
+			history.replaceState(null, '', '#' + currentHash);
 		} else {
-			location.hash = hash;
+			location.hash = currentHash;
 		}
 	}
 }
@@ -240,6 +244,13 @@ function initEvents () {
 			displayFromHash(location.hash.slice(1));
 		}
 	});*/
+
+	document.addEventListener('dblclick', function (e) {
+		var el = e.target;
+		if (el.tagName === 'HEADER' || el.tagName === 'H1') {
+			updateHash();
+		}
+	});
 
 	document.addEventListener('click', function (e) {
 		if (e.button !== 0) {

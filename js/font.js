@@ -4,8 +4,8 @@
 var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	//jscs:disable maximumLineLength
 	//emojiOne: ['https://cdn.rawgit.com/Ranks/emojione/844221d8/extras/fonts/emojione-svg.woff', 0],
-	twitterColorEmoji: ['https://cdn.rawgit.com/delan/charming/5d64c4fc/TwitterColorEmoji-SVGinOT.ttf', 0],
-	symbola: ['https://cdn.rawgit.com/delan/charming/5d64c4fc/Symbola.ttf', 1],
+	twitterColorEmoji: ['https://cdn.rawgit.com/delan/charming/ebd2e7d2/TwitterColorEmoji-SVGinOT.ttf', 0],
+	symbola: ['https://cdn.rawgit.com/delan/charming/ebd2e7d2/Symbola.ttf', 1],
 
 	notoSans: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/hinted/NotoSans-Regular.ttf', 0],
 	notoArabic: ['https://cdn.rawgit.com/googlei18n/noto-fonts/7aa32030/hinted/NotoNaskhArabic-Regular.ttf', 0],

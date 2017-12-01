@@ -104,6 +104,11 @@ section > div {
 	color: black;
 }
 
+.char-list {
+	margin: 0;
+	padding: 0;
+}
+
 .char-list li {
 	display: block;
 	float: left;

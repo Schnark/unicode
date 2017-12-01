@@ -30,7 +30,7 @@ var currentView = document.getElementById('page-loading'), views = {
 }, needsInit = {
 	block: true,
 	script: true
-}, currentChar = '', currentHash = '', backToMain = true;
+}, currentChar = '', currentHash = '', listInit = false, listResultInit = false;
 
 function scrollTop () {
 	var divs = currentView.getElementsByTagName('div'), i;
@@ -40,7 +40,6 @@ function scrollTop () {
 }
 
 function displayMain () {
-	backToMain = false;
 	currentView.hidden = true;
 	currentView = views.main;
 	currentView.hidden = false;
@@ -57,6 +56,7 @@ function displayFonts () {
 }
 
 function displayList (list) {
+	listInit = true;
 	currentView.hidden = true;
 	currentView = views.list;
 	currentView.hidden = false;
@@ -85,6 +85,7 @@ function displayList (list) {
 }
 
 function displayListResult (list, search, skip) {
+	listResultInit = true;
 	currentView.hidden = true;
 	currentView = views.result;
 	currentView.hidden = false;
@@ -301,17 +302,17 @@ function initEvents () {
 			resetFilters();
 			return;
 		case 'back-list':
-			if (backToMain) {
-				displayMain();
-			} else {
+			if (listInit) {
 				displayList();
+			} else {
+				displayMain();
 			}
 			return;
 		case 'back-result':
-			if (backToMain) {
-				displayMain();
-			} else {
+			if (listResultInit) {
 				displayListResult();
+			} else {
+				displayMain();
 			}
 			return;
 		case 'click-block':

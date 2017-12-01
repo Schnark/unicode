@@ -407,13 +407,13 @@ function getRelated (codepoint) {
 
 function getExternal (codepoint) {
 	return {
-		'Unicode': 'http://unicode.org/cldr/utility/character.jsp?a=' + hex(codepoint),
+		'Unicode': 'https://unicode.org/cldr/utility/character.jsp?a=' + hex(codepoint),
 		'Graphemica': 'http://graphemica.com/' + getChar(codepoint),
 		'Codepoints': 'https://codepoints.net/' + getHex(codepoint),
 		'Scriptsource': 'http://scriptsource.org/cms/scripts/page.php?item_id=character_detail&key=U' +
 			('00000' + Number(codepoint).toString(16)).slice(-6),
 		'Fileformat': 'http://www.fileformat.info/info/unicode/char/' + hex(codepoint) + '/index.htm',
-		'Isthisthingon': 'http://www.isthisthingon.org/unicode/index.phtml?glyph=' + hex(codepoint)
+		'Isthisthingon': 'https://www.isthisthingon.org/unicode/index.phtml?glyph=' + hex(codepoint)
 	};
 }
 

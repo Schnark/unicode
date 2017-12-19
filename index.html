@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html><head><title data-l10n-id="title">Unicode Browser</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no">
+<meta name="viewport" content="width=device-width">
 <link rel="apple-touch-icon" sizes="180x180" href="more-icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="more-icons/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="more-icons/favicon-16x16.png" sizes="16x16">
@@ -17,11 +17,12 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 	navigator.serviceWorker.register('sw.js');
 }
 </script>
-<script src="js/lib/l10n.js"></script>
-<script src="js/properties.js"></script>
-<script src="js/unicode.js"></script>
-<script src="js/display.js"></script>
-<script src="js/font.js"></script>
+<script src="js/lib/l10n.js" defer></script>
+<script src="js/properties.js" defer></script>
+<script src="js/unicode.js" defer></script>
+<script src="js/display.js" defer></script>
+<script src="js/font.js" defer></script>
+<script src="js/app.js" defer></script>
 <style id="font-style">
 .font-support {
 	font-family: sans-serif;
@@ -30,7 +31,7 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <style id="filter-style"></style>
 </head><body>
 <section id="page-loading">
-<img src="icons/icon-512.png">
+<img src="icons/icon-512.png" alt="">
 </section>
 
 <section id="page-main" hidden>
@@ -79,7 +80,7 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <div>
 <h1 data-l10n-id="h-legend">(h-legend)</h1>
 <h2 data-l10n-id="h-version">(h-version)</h2>
-<p><ul class="char-list">
+<ul class="char-list">
 <li class="click-age age-1-1" data-name="1.1">1.1</li>
 <li class="click-age age-2-0" data-name="2.0">2.0</li>
 <li class="click-age age-2-1" data-name="2.1">2.1</li>
@@ -99,9 +100,9 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <li class="click-age age-8-0" data-name="8.0">8.0</li>
 <li class="click-age age-9-0" data-name="9.0">9.0</li>
 <li class="click-age age-10-0" data-name="10.0">10.0</li>
-</ul><br style="clear: both"></p>
+</ul><br style="clear: both">
 <h2 data-l10n-id="h-gc">(h-gc)</h2>
-<p><ul class="char-list">
+<ul class="char-list">
 <li class="click-gc gc-cc" data-name="Cc">Cc</li>
 <li class="click-gc gc-cf" data-name="Cf">Cf</li>
 <li class="click-gc gc-cn" data-name="Cn">Cn</li>
@@ -132,23 +133,21 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <li class="click-gc gc-zl" data-name="Zl">Zl</li>
 <li class="click-gc gc-zp" data-name="Zp">Zp</li>
 <li class="click-gc gc-zs" data-name="Zs">Zs</li>
-</ul><br style="clear: both"></p>
+</ul><br style="clear: both">
 <h1 data-l10n-id="h-ext">(h-ext)</h1>
-<p><span data-l10n-id="about-ext">(about-ext)</span>
+<p data-l10n-id="about-ext">(about-ext)</p>
 <ul>
 <li><a href="https://www.unicode.org/" target="_blank" rel="noopener">unicode.org</a></li>
 <li><a href="https://www.emojicopy.com/" target="_blank" rel="noopener">emojicopy.com</a></li>
 <li><a href="http://shapecatcher.com/" target="_blank" rel="noopener">shapecatcher.com</a></li>
-</ul></p>
+</ul>
 <h1 data-l10n-id="h-use">(h-use)</h1>
-<p>
 <ul>
 <li data-l10n-id="about-use-1">(about-use-1)</li>
 <li data-l10n-id="about-use-2">(about-use-2)</li>
 <li data-l10n-id="about-use-3">(about-use-3)</li>
 <li data-l10n-id="about-use-4">(about-use-4)</li>
 </ul>
-</p>
 <h1 data-l10n-id="h-license">(h-license)</h1>
 <p data-l10n-id="about-license"></p>
 </div>
@@ -215,6 +214,4 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 <button class="font-load" data-name="americas" data-l10n-id="font-americas">(font-americas)</button>
 </div>
 </section>
-
-<script src="js/app.js"></script>
 </body></html>

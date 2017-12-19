@@ -1,8 +1,8 @@
 {
-	"version": "1.9",
+	"version": "1.10",
 	"name": "Unicode Browser",
 	"description": "Unicode character browser",
-	"size": 451755,
+	"size": 451713,
 	"package_path": "https://schnark.github.io/unicode/unicode.zip",
 	"icons": {
 		"128": "/icons/icon-128.png",
@@ -12,7 +12,6 @@
 		"name": "Michael Müller",
 		"url": "https://github.com/Schnark"
 	},
-	"installs_allowed_from": ["*"],
 	"default_locale": "en",
 	"locales": {
 		"de": {

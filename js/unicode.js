@@ -96,7 +96,6 @@ function generateAge (data) {
 }
 
 function generateSequences (emoji1, emoji2, emoji3, named, variants) {
-
 	var i;
 	store.sequences = new MapProperty([]);
 	for (i = 0; i < emoji1.length; i++) {

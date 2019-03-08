@@ -1,5 +1,5 @@
 {
-	"version": "1.12",
+	"version": "1.13",
 	"name": "Unicode Browser",
 	"description": "Unicode character browser",
 	"launch_path": "/index.html",

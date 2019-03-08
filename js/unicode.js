@@ -99,7 +99,9 @@ function generateSequences (emoji1, emoji2, emoji3, named, variants) {
 	var i;
 	store.sequences = new MapProperty([]);
 	for (i = 0; i < emoji1.length; i++) {
-		store.sequences.addSequence(new CodepointSequence(emoji1[i][0], emoji1[i][2]));
+		if (emoji1[i][1] !== 'Basic_Emoji') {
+			store.sequences.addSequence(new CodepointSequence(emoji1[i][0], emoji1[i][2]));
+		}
 	}
 	for (i = 0; i < emoji2.length; i++) {
 		store.sequences.addSequence(new CodepointSequence(emoji2[i][0], emoji2[i][2]));

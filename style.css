@@ -197,6 +197,9 @@ li.age-12-0 {
 	border-color: hsl(0,100%,50%);
 	border-style: dotted;
 }
+li.age-12-1 {
+	border-color: hsl(0,100%,50%); /*same as for 12.0*/
+}
 
 li.gc-cc {
 	background-color: #999;

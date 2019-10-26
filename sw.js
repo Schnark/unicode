@@ -3,7 +3,7 @@
 "use strict";
 
 var PREFIX = 'unicode',
-	VERSION = '1.14',
+	VERSION = '1.15',
 	FILES = [
 		'index.html',
 		'style.css',

@@ -1,8 +1,8 @@
 {
-	"version": "1.15",
+	"version": "1.16",
 	"name": "Unicode Browser",
 	"description": "Unicode character browser",
-	"size": 478981,
+	"size": 493137,
 	"package_path": "http://localhost:8080/unicode.zip",
 	"icons": {
 		"128": "/icons/icon-128.png",

@@ -56,18 +56,22 @@ function hex (codepoint) {
 
 function nameFallback (codepoint) {
 	if (
-		(0x3400 <= codepoint && codepoint <= 0x4DB5) ||
-		(0x4E00 <= codepoint && codepoint <= 0x9FEA) ||
-		(0x20000 <= codepoint && codepoint <= 0x2A6D6) ||
+		(0x3400 <= codepoint && codepoint <= 0x4DBF) ||
+		(0x4E00 <= codepoint && codepoint <= 0x9FFC) ||
+		(0x20000 <= codepoint && codepoint <= 0x2A6DD) ||
 		(0x2A700 <= codepoint && codepoint <= 0x2B734) ||
 		(0x2B740 <= codepoint && codepoint <= 0x2B81D) ||
 		(0x2B820 <= codepoint && codepoint <= 0x2CEA1) ||
-		(0x2CEB0 <= codepoint && codepoint <= 0x2EBE0)
+		(0x2CEB0 <= codepoint && codepoint <= 0x2EBE0) ||
+		(0x30000 <= codepoint && codepoint <= 0x3134A)
 	) {
 		return 'CJK UNIFIED IDEOGRAPH-' + hex(codepoint);
 	} else if (0xAC00 <= codepoint && codepoint <= 0xD7A3) {
 		return 'HANGUL SYLLABLE ' + decomposeHangul(codepoint).map(getJamo).join('');
-	} else if (0x17000 <= codepoint && codepoint <= 0x187EC) {
+	} else if (
+		(0x17000 <= codepoint && codepoint <= 0x187F7) ||
+		(0x18D00 <= codepoint && codepoint <= 0x18D08)
+	) {
 		return 'TANGUT IDEOGRAPH-' + hex(codepoint);
 	}
 	return '';

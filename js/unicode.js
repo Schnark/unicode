@@ -57,9 +57,9 @@ function hex (codepoint) {
 function nameFallback (codepoint) {
 	if (
 		(0x3400 <= codepoint && codepoint <= 0x4DBF) ||
-		(0x4E00 <= codepoint && codepoint <= 0x9FFC) ||
-		(0x20000 <= codepoint && codepoint <= 0x2A6DD) ||
-		(0x2A700 <= codepoint && codepoint <= 0x2B734) ||
+		(0x4E00 <= codepoint && codepoint <= 0x9FFF) ||
+		(0x20000 <= codepoint && codepoint <= 0x2A6DF) ||
+		(0x2A700 <= codepoint && codepoint <= 0x2B738) ||
 		(0x2B740 <= codepoint && codepoint <= 0x2B81D) ||
 		(0x2B820 <= codepoint && codepoint <= 0x2CEA1) ||
 		(0x2CEB0 <= codepoint && codepoint <= 0x2EBE0) ||

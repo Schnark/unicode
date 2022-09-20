@@ -1,6 +1,6 @@
 The files in this directory are from unicode.org.
 
-From https://www.unicode.org/Public/14.0.0/ucd/:
+From https://www.unicode.org/Public/15.0.0/ucd/:
 * Blocks.txt
 * DerivedAge.txt
 * Jamo.txt
@@ -12,14 +12,14 @@ From https://www.unicode.org/Public/14.0.0/ucd/:
 * SpecialCasing.txt
 * StandardizedVariants.txt
 
-From https://www.unicode.org/Public/14.0.0/ucd/emoji/:
+From https://www.unicode.org/Public/15.0.0/ucd/emoji/:
 * emoji-variation-sequences.txt
 
-From https://www.unicode.org/Public/emoji/14.0/:
+From https://www.unicode.org/Public/emoji/15.0/:
 * emoji-sequences.txt
 * emoji-zwj-sequences.txt
 
-From http://www.unicode.org/Public/14.0.0/ucd/, with modifications:
+From http://www.unicode.org/Public/15.0.0/ucd/, with modifications:
 * UnicodeData.modified.txt
 The original UnicodeData.txt has been modified to replace all ranges of the form
 
@@ -35,7 +35,7 @@ This has been extracted from NamesList.txt using the Perl script namesList.pl.
 
 To all these files the following license applies:
 
-Copyright © 1991-2021 Unicode, Inc. All rights reserved.
+Copyright © 1991-2022 Unicode, Inc. All rights reserved.
 Distributed under the Terms of Use in http://www.unicode.org/copyright.html.
 
 Permission is hereby granted, free of charge, to any person obtaining

@@ -5,7 +5,7 @@ function cdnLink (repo, path) {
 	var repos = {
 		//emojione: 'gh/Ranks/emojione@844221d8931592dcc188caa74b7cad085a186bc8/',
 		delan: 'gh/delan/charming@7e6545fe5c22be3d66423466978f2b6f8e795b22/',
-		noto: 'gh/googlei18n/noto-fonts@08d53e7b5a6b97841951bc2b769d466a046c1c95/',
+		noto: 'gh/notofonts/noto-fonts@2725c70baa8b0176c7577093ba1fc6179aa79478/',
 		cjk: 'gh/googlei18n/noto-cjk@be6c059ac1587e556e2412b27f5155c8eb3ddbe6/'
 	};
 	return 'https://cdn.jsdelivr.net/' + repos[repo] + path;
@@ -27,6 +27,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoArabic: [noto('Arabic'), 0],
 	notoArmenian: [noto('Armenian'), 0],
 	notoAvestan: [noto('Avestan'), 0],
+	notoBalinese: [noto('Balinense'), 0],
 	notoBamum: [noto('Bamum'), 0],
 	notoBassaVah: [noto('BassaVah'), 0],
 	notoBatak: [noto('Batak'), 0],
@@ -35,15 +36,17 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoBrahmi: [noto('Brahmi'), 0],
 	notoBuginese: [noto('Buginese'), 0],
 	notoBuhid: [noto('Buhid'), 0],
-	notoCaucasianAlbanian: [noto('CaucasianAlbanian'), 0],
 	notoCanadianAboriginal: [noto('CanadianAboriginal'), 0],
+	notoCaucasianAlbanian: [noto('CaucasianAlbanian'), 0],
 	notoCarian: [noto('Carian'), 0],
 	notoChakma: [noto('Chakma'), 0],
 	notoCham: [noto('Cham'), 0],
 	notoCherokee: [noto('Cherokee'), 0],
+	notoChorasmian: [noto('Chorasmian'), 0],
 	notoCoptic: [noto('Coptic'), 0],
 	notoCuneiform: [noto('Cuneiform'), 0],
 	notoCypriot: [noto('Cypriot'), 0],
+	notoCyproMinoan: [noto('CyproMinoan'), 0],
 	notoDeseret: [noto('Deseret'), 0],
 	notoDuployan: [noto('Duployan'), 0],
 	notoDevanagari: [noto('Devanagari'), 0],
@@ -101,6 +104,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoMultani: [noto('Multani'), 0],
 	notoMyanmar: [noto('Myanmar'), 0],
 	notoNabataean: [noto('Nabataean'), 0],
+	notoNandinagari: [noto('Nandinagari'), 0],
 	notoNewa: [noto('Newa'), 0],
 	notoNewTaiLue: [noto('NewTaiLue'), 0],
 	notoNKo: [noto('NKo'), 0],
@@ -131,6 +135,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoSharada: [noto('Sharada'), 0],
 	notoShavian: [noto('Shavian'), 0],
 	notoSiddham: [noto('Siddham'), 0],
+	notoSignWriting: [noto('SignWriting'), 0],
 	notoSinhala: [noto('Sinhala'), 0],
 	notoSogdian: [noto('Sogdian'), 0],
 	notoSoraSompeng: [noto('SoraSompeng'), 0],
@@ -148,6 +153,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoTakri: [noto('Takri'), 0],
 	notoTamil: [noto('Tamil'), 0],
 	notoTamilSupplement: [noto('TamilSupplement'), 0],
+	notoTangsa: [noto('Tangsa'), 0],
 	notoTelugu: [noto('Telugu'), 0],
 	notoThaana: [noto('Thaana'), 0],
 	notoThai: [noto('Thai'), 0],
@@ -155,14 +161,16 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoTirhuta: [noto('Tirhuta'), 0],
 	notoUgaritic: [noto('Ugaritic'), 0],
 	notoVai: [noto('Vai'), 0],
+	notoVithkuqi: [noto('Vithkuqi'), 0],
 	notoWancho: [noto('Wancho'), 0],
 	notoWarangCiti: [noto('WarangCiti'), 0],
 	notoYi: [noto('Yi'), 0],
 	notoZanabazarSquare: [noto('ZanabazarSquare'), 0],
 
 	notoAhom: [noto('Ahom', 'Serif'), 0],
-	notoBalinese: [noto('Balinense', 'Serif'), 0],
+	notoDivesAkuru: [noto('DivesAkuru', 'Serif'), 0],
 	notoDogra: [noto('Dogra', 'Serif'), 0],
+	notoMakasar: [noto('Makasar', 'Serif'), 0],
 	notoNyiakengPuachueHmong: [noto('NyiakengPuachueHmong', 'Serif'), 0],
 	notoTangut: [noto('Tangut', 'Serif'), 0],
 	notoTibetan: [noto('Tibetan', 'Serif'), 0],
@@ -180,6 +188,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoIndicSiyaqNumbers',
 		'notoMayanNumerals',
 		'notoDuployan',
+		'notoSignWriting',
 		'symbola',
 		'twitterColorEmoji'
 	],
@@ -191,170 +200,178 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoArmenian'
 	],
 	europa2: [
-		'notoOldItalic',
-		'notoCaucasianAlbanian',
 		'notoLinearA',
 		'notoLinearB',
-		'notoRunic',
-		'notoOldPermic',
 		'notoCypriot',
-		'notoOldHungarian',
-		'notoOgham',
+		'notoCyproMinoan',
 		'notoLydian', 'notoLycian', 'notoCarian', //Anatolian Alphabets
+		'notoOldItalic',
+		'notoRunic',
+		'notoOldHungarian',
 		'notoGothic',
-		'notoShavian',
-		'notoElbasan'
+		'notoElbasan',
+		'notoCaucasianAlbanian',
+		'notoVithkuqi',
+		'notoOldPermic',
+		'notoOgham',
+		'notoShavian'
 	],
 	middleEast1: [
 		'notoHebrew',
-		'notoSyriac',
-		'notoMandaic',
 		'notoArabic',
+		'notoSyriac',
 		'notoSamaritan',
+		'notoMandaic',
 		'notoYezidi'
 	],
 	middleEast2: [
 		'notoOldNorthArabian',
-		'notoManichaean',
-		'notoNabataean',
 		'notoOldSouthArabian',
+		'notoPhoenician',
+		'notoImperialAramaic',
+		'notoManichaean',
 		'notoInscriptionalParthian',
 		'notoInscriptionalPahlavi',
 		'notoPsalterPahlavi',
-		'notoPalmyrene',
-		'notoPhoenician',
 		'notoAvestan',
-		'notoHatran',
-		'notoImperialAramaic',
-		'notoElymaic'
-		//Chorasmian
+		'notoChorasmian',
+		'notoElymaic',
+		'notoNabataean',
+		'notoPalmyrene',
+		'notoHatran'
 	],
 	cuneiformHieroglyphs: [
 		'notoCuneiform',
-		'notoOldPersian',
-		'notoMerotic',
 		'notoUgaritic',
+		'notoOldPersian',
 		'notoEgyptianHieroglyphs',
+		'notoMerotic',
 		'notoAnatolianHieroglyphs'
 	],
 	southCentralAsia1: [
 		'notoDevanagari',
-		'notoGujarati',
-		'notoTelugu',
 		'notoBengali',
-		'notoOriya',
-		'notoKannada',
 		'notoGurmukhi',
+		'notoGujarati',
+		'notoOriya',
 		'notoTamil', 'notoTamilSupplement',
+		'notoTelugu',
+		'notoKannada',
 		'notoMalayalam'
 	],
 	southCentralAsia2: [
 		'notoThaana',
-		'notoLimbu',
-		'notoOlChiki',
 		'notoSinhala',
-		'notoMeeteiMayek',
-		'notoChakma',
 		'notoNewa',
-		'notoMro',
-		'notoLepcha',
 		'notoTibetan',
-		'notoWarangCiti',
-		'notoSaurashtra',
 		'notoMongolian',
+		'notoLimbu',
+		'notoMeeteiMayek',
+		'notoMro',
+		'notoWarangCiti',
+		'notoOlChiki',
+		'notoChakma',
+		'notoLepcha',
+		'notoSaurashtra',
 		'notoMasaramGondi',
 		'notoGunjalaGondi',
-		'notoWancho'
+		'notoWancho',
+		//Toto
+		'notoTangsa'
 	],
 	southCentralAsia3: [
 		'notoBrahmi',
-		'notoBhaiksuki',
-		'notoMarchen',
 		'notoKharoshthi',
+		'notoBhaiksuki',
 		'notoPhagsPa',
+		'notoMarchen',
 		'notoOldTurkic',
+		'notoSoyombo',
 		'notoZanabazarSquare',
 		'notoOldSogdian',
-		'notoSoyombo',
 		'notoSogdian'
+		//Old Uyghur
 	],
 	southCentralAsia4: [
 		'notoSylotiNagri',
-		'notoMahajani',
-		'notoModi',
 		'notoKaithi',
-		'notoKhojki',
-		//Nandinagari
-		'notoGrantha',
 		'notoSharada',
-		'notoKhudawadi',
-		'notoAhom',
 		'notoTakri',
-		'notoMultani',
-		'notoSoraSompeng',
 		'notoSiddham',
+		'notoMahajani',
+		'notoKhojki',
+		//Nag Mundari
+		'notoKhudawadi',
+		'notoMultani',
 		'notoTirhuta',
+		'notoModi',
+		'notoNandinagari',
+		'notoGrantha',
+		'notoDivesAkuru',
+		'notoAhom',
+		'notoSoraSompeng',
 		'notoDogra'
-		//Dives Akuru
 	],
 	southeastAsia: [
 		'notoThai',
-		'notoTaiLe',
-		'notoKayahLi',
 		'notoLao',
-		'notoNewTaiLue',
-		'notoCham',
 		'notoMyanmar',
+		'notoKhmer',
+		'notoTaiLe',
+		'notoNewTaiLue',
 		'notoTaiTham',
+		'notoTaiViet',
+		'notoKayahLi',
+		'notoCham',
 		'notoPahawhHmong',
 		'notoNyiakengPuachueHmong',
-		'notoKhmer',
-		'notoTaiViet',
 		'notoPauCinHau',
 		'notoHanifiRohingya'
-		//Khitan Small Script
 	],
 	indonesiaOceania: [
 		'notoTagalog',
 		'notoHanunoo',
 		'notoBuhid',
 		'notoTagbanwa',
-		'notoJavanese',
-		'notoBatak',
 		'notoBuginese',
+		'notoBalinese',
+		'notoJavanese',
 		'notoRejang',
+		'notoBatak',
 		'notoSundanese',
-		'notoBalinese'
-		//Makasar
+		'notoMakasar'
+		//Kawi
 	],
 	eastAsia: [
 		'notoCJK',
-		//Katakana
-		'notoLisu',
+		//the following are probably somewhere included
 		//Bopomofo
-		//Hangul
-		'notoMiao',
 		//Hiragana
+		//Katakana
+		//Hangul
 		'notoYi',
-		'notoTangut',
-		'notoNushu'
+		'notoNushu',
+		'notoLisu',
+		'notoMiao',
+		'notoTangut'
+		//Khitan Small Script
 	],
 	africa: [
 		'notoEthiopic',
-		'notoNKo',
-		'notoBassaVah',
 		'notoOsmanya',
-		'notoVai',
-		'notoMendeKikakui',
 		'notoTifinagh',
+		'notoNKo',
+		'notoVai',
 		'notoBamum',
+		'notoBassaVah',
+		'notoMendeKikakui',
 		'notoAdlam',
 		'notoMedefaidrin'
 	],
 	americas: [
 		'notoCherokee',
-		'notoOsage',
 		'notoCanadianAboriginal',
+		'notoOsage',
 		'notoDeseret'
 	]
 };

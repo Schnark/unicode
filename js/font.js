@@ -4,16 +4,16 @@
 function cdnLink (repo, path) {
 	var repos = {
 		//emojione: 'gh/Ranks/emojione@844221d8931592dcc188caa74b7cad085a186bc8/',
-		delan: 'gh/delan/charming@7e6545fe5c22be3d66423466978f2b6f8e795b22/',
-		noto: 'gh/notofonts/noto-fonts@2725c70baa8b0176c7577093ba1fc6179aa79478/',
-		cjk: 'gh/googlei18n/noto-cjk@be6c059ac1587e556e2412b27f5155c8eb3ddbe6/'
+		delan: 'gh/delan/charming@7e6545fe5c22be3d66423466978f2b6f8e795b22/', //fonts no longer in use there
+		noto: 'gh/notofonts/notofonts.github.io@0f60329462d271c235250be61f62f4203c251539/',
+		cjk: 'gh/notofonts/noto-cjk@9b0f1436e455d902de067a2501422e5dc71ad16b/'
 	};
 	return 'https://cdn.jsdelivr.net/' + repos[repo] + path;
 }
 
 function noto (font, serif) {
 	var name = 'Noto' + (serif || 'Sans') + font;
-	return cdnLink('noto', 'hinted/ttf/' + name + '/' + name + '-Regular.ttf');
+	return cdnLink('noto', 'fonts/' + name + '/hinted/ttf/' + name + '-Regular.ttf');
 }
 
 var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
@@ -73,6 +73,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoKaithi: [noto('Kaithi'), 0],
 	notoKannada: [noto('Kannada'), 0],
 	notoKayahLi: [noto('KayahLi'), 0],
+	notoKawi: [noto('Kawi'), 0],
 	notoKharoshthi: [noto('Kharoshthi'), 0],
 	notoKhmer: [noto('Khmer'), 0],
 	notoKhojki: [noto('Khojki'), 0],
@@ -104,6 +105,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoMultani: [noto('Multani'), 0],
 	notoMyanmar: [noto('Myanmar'), 0],
 	notoNabataean: [noto('Nabataean'), 0],
+	notoNagMundari: [noto('NagMundari'), 0],
 	notoNandinagari: [noto('Nandinagari'), 0],
 	notoNewa: [noto('Newa'), 0],
 	notoNewTaiLue: [noto('NewTaiLue'), 0],
@@ -177,14 +179,16 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoYezidi: [noto('Yezidi', 'Serif'), 0],
 
 	notoMusic: [noto('', 'Music'), 0], //NotoMusic
+	notoZnamennyMusicalNotation: [noto('', 'ZnamennyMusicalNotation'), 0],
 
-	notoCJK: [cdnLink('cjk', 'NotoSansCJKjp-Regular.otf'), 0]
+	notoCJK: [cdnLink('cjk', 'Serif/OTF/Japanese/NotoSerifCJKjp-Regular.otf'), 0]
 }, fontGroups = {
 	//grouped like in the Unicode Standard
 	notationalSystemsSymbols: [
 		'notoSymbols', 'notoSymbols2',
 		'notoMath',
 		'notoMusic',
+		'notoZnamennyMusicalNotation',
 		'notoIndicSiyaqNumbers',
 		'notoMayanNumerals',
 		'notoDuployan',
@@ -212,6 +216,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoElbasan',
 		'notoCaucasianAlbanian',
 		'notoVithkuqi',
+		//Todhri
 		'notoOldPermic',
 		'notoOgham',
 		'notoShavian'
@@ -270,6 +275,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoMro',
 		'notoWarangCiti',
 		'notoOlChiki',
+		//Ol Onal
+		'notoNagMundari',
 		'notoChakma',
 		'notoLepcha',
 		'notoSaurashtra',
@@ -278,6 +285,9 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoWancho',
 		//Toto
 		'notoTangsa'
+		//Sunuwar
+		//Gurung Khema
+		//Kirat Rai
 	],
 	southCentralAsia3: [
 		'notoBrahmi',
@@ -285,9 +295,9 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoBhaiksuki',
 		'notoPhagsPa',
 		'notoMarchen',
-		'notoOldTurkic',
-		'notoSoyombo',
 		'notoZanabazarSquare',
+		'notoSoyombo',
+		'notoOldTurkic',
 		'notoOldSogdian',
 		'notoSogdian'
 		//Old Uyghur
@@ -300,7 +310,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoSiddham',
 		'notoMahajani',
 		'notoKhojki',
-		//Nag Mundari
+		'notoDogra',
 		'notoKhudawadi',
 		'notoMultani',
 		'notoTirhuta',
@@ -309,8 +319,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoGrantha',
 		'notoDivesAkuru',
 		'notoAhom',
-		'notoSoraSompeng',
-		'notoDogra'
+		'notoSoraSompeng'
+		//Tulu-Tigalari
 	],
 	southeastAsia: [
 		'notoThai',
@@ -339,8 +349,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoRejang',
 		'notoBatak',
 		'notoSundanese',
-		'notoMakasar'
-		//Kawi
+		'notoMakasar',
+		'notoKawi'
 	],
 	eastAsia: [
 		'notoCJK',
@@ -367,6 +377,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoMendeKikakui',
 		'notoAdlam',
 		'notoMedefaidrin'
+		//Garay
 	],
 	americas: [
 		'notoCherokee',

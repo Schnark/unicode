@@ -63,6 +63,7 @@ function nameFallback (codepoint) {
 		(0x2B740 <= codepoint && codepoint <= 0x2B81D) ||
 		(0x2B820 <= codepoint && codepoint <= 0x2CEA1) ||
 		(0x2CEB0 <= codepoint && codepoint <= 0x2EBE0) ||
+		(0x2EBF0 <= codepoint && codepoint <= 0x2EE5D) ||
 		(0x30000 <= codepoint && codepoint <= 0x3134A) ||
 		(0x31350 <= codepoint && codepoint <= 0x323AF)
 	) {
@@ -414,11 +415,11 @@ function getRelated (codepoint) {
 function getExternal (codepoint) {
 	return {
 		'Unicode': 'https://unicode.org/cldr/utility/character.jsp?a=' + hex(codepoint),
-		'Graphemica': 'http://graphemica.com/' + getChar(codepoint),
+		'Graphemica': 'https://graphemica.com/' + getChar(codepoint),
 		'Codepoints': 'https://codepoints.net/' + getHex(codepoint),
-		'Scriptsource': 'http://scriptsource.org/cms/scripts/page.php?item_id=character_detail&key=U' +
+		'Scriptsource': 'https://scriptsource.org/cms/scripts/page.php?item_id=character_detail&key=U' +
 			('00000' + Number(codepoint).toString(16)).slice(-6),
-		'Fileformat': 'http://www.fileformat.info/info/unicode/char/' + hex(codepoint) + '/index.htm',
+		'Fileformat': 'https://www.fileformat.info/info/unicode/char/' + hex(codepoint) + '/index.htm',
 		'Isthisthingon': 'https://www.isthisthingon.org/unicode/index.phtml?glyph=' + hex(codepoint)
 	};
 }

@@ -5,7 +5,7 @@ function cdnLink (repo, path) {
 	var repos = {
 		//emojione: 'gh/Ranks/emojione@844221d8931592dcc188caa74b7cad085a186bc8/',
 		delan: 'gh/delan/charming@7e6545fe5c22be3d66423466978f2b6f8e795b22/', //fonts no longer in use there
-		noto: 'gh/notofonts/notofonts.github.io@0f60329462d271c235250be61f62f4203c251539/',
+		noto: 'gh/notofonts/notofonts.github.io@16bf95635582376939a3de0cc763bf7fc0b5df59/',
 		cjk: 'gh/notofonts/noto-cjk@9b0f1436e455d902de067a2501422e5dc71ad16b/'
 	};
 	return 'https://cdn.jsdelivr.net/' + repos[repo] + path;
@@ -37,8 +37,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoBuginese: [noto('Buginese'), 0],
 	notoBuhid: [noto('Buhid'), 0],
 	notoCanadianAboriginal: [noto('CanadianAboriginal'), 0],
-	notoCaucasianAlbanian: [noto('CaucasianAlbanian'), 0],
 	notoCarian: [noto('Carian'), 0],
+	notoCaucasianAlbanian: [noto('CaucasianAlbanian'), 0],
 	notoChakma: [noto('Chakma'), 0],
 	notoCham: [noto('Cham'), 0],
 	notoCherokee: [noto('Cherokee'), 0],
@@ -48,8 +48,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoCypriot: [noto('Cypriot'), 0],
 	notoCyproMinoan: [noto('CyproMinoan'), 0],
 	notoDeseret: [noto('Deseret'), 0],
-	notoDuployan: [noto('Duployan'), 0],
 	notoDevanagari: [noto('Devanagari'), 0],
+	notoDuployan: [noto('Duployan'), 0],
 	notoEgyptianHieroglyphs: [noto('EgyptianHieroglyphs'), 0],
 	notoElbasan: [noto('Elbasan'), 0],
 	notoElymaic: [noto('Elymaic'), 0],
@@ -72,8 +72,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoJavanese: [noto('Javanese'), 0],
 	notoKaithi: [noto('Kaithi'), 0],
 	notoKannada: [noto('Kannada'), 0],
-	notoKayahLi: [noto('KayahLi'), 0],
 	notoKawi: [noto('Kawi'), 0],
+	notoKayahLi: [noto('KayahLi'), 0],
 	notoKharoshthi: [noto('Kharoshthi'), 0],
 	notoKhmer: [noto('Khmer'), 0],
 	notoKhojki: [noto('Khojki'), 0],
@@ -104,12 +104,12 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoMro: [noto('Mro'), 0],
 	notoMultani: [noto('Multani'), 0],
 	notoMyanmar: [noto('Myanmar'), 0],
+	notoNKo: [noto('NKo'), 0],
 	notoNabataean: [noto('Nabataean'), 0],
 	notoNagMundari: [noto('NagMundari'), 0],
 	notoNandinagari: [noto('Nandinagari'), 0],
-	notoNewa: [noto('Newa'), 0],
 	notoNewTaiLue: [noto('NewTaiLue'), 0],
-	notoNKo: [noto('NKo'), 0],
+	notoNewa: [noto('Newa'), 0],
 	notoNushu: [noto('Nushu'), 0],
 	notoOgham: [noto('Ogham'), 0],
 	notoOlChiki: [noto('OlChiki'), 0],
@@ -143,6 +143,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoSoraSompeng: [noto('SoraSompeng'), 0],
 	notoSoyombo: [noto('Soyombo'), 0],
 	notoSundanese: [noto('Sundanese'), 0],
+	notoSunuwar: [noto('Sunuwar'), 0],
 	notoSylotiNagri: [noto('SylotiNagri'), 0],
 	notoSymbols: [noto('Symbols'), 0],
 	notoSymbols2: [noto('Symbols2'), 0],
@@ -172,10 +173,13 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 	notoAhom: [noto('Ahom', 'Serif'), 0],
 	notoDivesAkuru: [noto('DivesAkuru', 'Serif'), 0],
 	notoDogra: [noto('Dogra', 'Serif'), 0],
+	notoKhitanSmallScript: [noto('KhitanSmallScript', 'Serif'), 0],
 	notoMakasar: [noto('Makasar', 'Serif'), 0],
 	notoNyiakengPuachueHmong: [noto('NyiakengPuachueHmong', 'Serif'), 0],
+	notoOldUyghur: [noto('OldUyghur', 'Serif'), 0],
 	notoTangut: [noto('Tangut', 'Serif'), 0],
 	notoTibetan: [noto('Tibetan', 'Serif'), 0],
+	notoToto: [noto('Toto', 'Serif'), 0],
 	notoYezidi: [noto('Yezidi', 'Serif'), 0],
 
 	notoMusic: [noto('', 'Music'), 0], //NotoMusic
@@ -220,6 +224,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoOldPermic',
 		'notoOgham',
 		'notoShavian'
+		//Sidetic
 	],
 	middleEast1: [
 		'notoHebrew',
@@ -283,11 +288,12 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoMasaramGondi',
 		'notoGunjalaGondi',
 		'notoWancho',
-		//Toto
-		'notoTangsa'
-		//Sunuwar
+		'notoToto',
+		'notoTangsa',
+		'notoSunuwar'
 		//Gurung Khema
 		//Kirat Rai
+		//Tolong Siki
 	],
 	southCentralAsia3: [
 		'notoBrahmi',
@@ -299,8 +305,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoSoyombo',
 		'notoOldTurkic',
 		'notoOldSogdian',
-		'notoSogdian'
-		//Old Uyghur
+		'notoSogdian',
+		'notoOldUyghur'
 	],
 	southCentralAsia4: [
 		'notoSylotiNagri',
@@ -337,6 +343,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoNyiakengPuachueHmong',
 		'notoPauCinHau',
 		'notoHanifiRohingya'
+		//Tai Yo
 	],
 	indonesiaOceania: [
 		'notoTagalog',
@@ -363,8 +370,8 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoNushu',
 		'notoLisu',
 		'notoMiao',
-		'notoTangut'
-		//Khitan Small Script
+		'notoTangut',
+		'notoKhitanSmallScript'
 	],
 	africa: [
 		'notoEthiopic',
@@ -378,6 +385,7 @@ var webfonts = [], prios = [[], [], ['sans-serif']], orig, fonts = {
 		'notoAdlam',
 		'notoMedefaidrin'
 		//Garay
+		//Beria Erfe
 	],
 	americas: [
 		'notoCherokee',

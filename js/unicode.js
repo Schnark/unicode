@@ -60,7 +60,7 @@ function nameFallback (codepoint) {
 		(0x4E00 <= codepoint && codepoint <= 0x9FFF) ||
 		(0x20000 <= codepoint && codepoint <= 0x2A6DF) ||
 		(0x2A700 <= codepoint && codepoint <= 0x2B73F) ||
-		(0x2B740 <= codepoint && codepoint <= 0x2B81D) ||
+		(0x2B740 <= codepoint && codepoint <= 0x2B81E) ||
 		(0x2B820 <= codepoint && codepoint <= 0x2CEAD) ||
 		(0x2CEB0 <= codepoint && codepoint <= 0x2EBE0) ||
 		(0x2EBF0 <= codepoint && codepoint <= 0x2EE5D) ||
@@ -73,9 +73,13 @@ function nameFallback (codepoint) {
 		return 'HANGUL SYLLABLE ' + decomposeHangul(codepoint).map(getJamo).join('');
 	} else if (
 		(0x17000 <= codepoint && codepoint <= 0x187FF) ||
-		(0x18D00 <= codepoint && codepoint <= 0x18D1E)
+		(0x18D00 <= codepoint && codepoint <= 0x18D20)
 	) {
 		return 'TANGUT IDEOGRAPH-' + hex(codepoint);
+	} else if (0x18E00 <= codepoint && codepoint <= 0x19191) {
+		return 'JURCHEN CHARACTER-' + hex(codepoint);
+	} else if (0x3D000 <= codepoint && codepoint <= 0x3FC3F) {
+		return 'SMALL SEAL CHARACTER-' + hex(codepoint);
 	}
 	return '';
 }

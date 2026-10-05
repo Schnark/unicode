@@ -120,6 +120,7 @@ section > div {
 	line-height: 2;
 }
 
+/*from 1.1 decrease H by 5, increase S and L by 10%*/
 li.age-1-1 { /*0*/
 	border-color: hsl(360,0%,0%);
 }
@@ -138,89 +139,97 @@ li.age-3-1 { /*4*/
 	border-color: hsl(340,40%,40%);
 	border-style: dashed;
 }
+/*from 3.2 decrease H, keep S and L at 50%*/
 li.age-3-2 { /*5*/
-	border-color: hsl(328,50%,50%);
+	border-color: hsl(322,50%,50%);
 	border-style: dotted;
 }
 li.age-4-0 { /*6*/
-	border-color: hsl(308,50%,50%);
+	border-color: hsl(304,50%,50%);
 }
 li.age-4-1 { /*7*/
-	border-color: hsl(289,50%,50%);
+	border-color: hsl(286,50%,50%);
 	border-style: dashed;
 }
 li.age-5-0 { /*8*/
-	border-color: hsl(270,50%,50%);
+	border-color: hsl(268,50%,50%);
 	border-style: dotted;
 }
 li.age-5-1 { /*9*/
-	border-color: hsl(250,50%,50%);
+	border-color: hsl(251,50%,50%);
 }
 li.age-5-2 { /*10*/
-	border-color: hsl(231,50%,50%);
+	border-color: hsl(233,50%,50%);
 	border-style: dashed;
 }
 li.age-6-0 { /*11*/
-	border-color: hsl(212,50%,50%);
+	border-color: hsl(215,50%,50%);
 	border-style: dotted;
 }
 li.age-6-1 { /*12*/
-	border-color: hsl(192,50%,50%);
+	border-color: hsl(197,50%,50%);
 }
 li.age-6-2 { /*13*/
-	border-color: hsl(173,50%,50%);
+	border-color: hsl(179,50%,50%);
 	border-style: dashed;
 }
 li.age-6-3 { /*14*/
-	border-color: hsl(154,50%,50%);
+	border-color: hsl(161,50%,50%);
 	border-style: dotted;
 }
 li.age-7-0 { /*15*/
-	border-color: hsl(134,50%,50%);
+	border-color: hsl(143,50%,50%);
 }
 li.age-8-0 { /*16*/
-	border-color: hsl(115,50%,50%);
+	border-color: hsl(125,50%,50%);
 	border-style: dashed;
 }
 li.age-9-0 { /*17*/
-	border-color: hsl(96,50%,50%);
+	border-color: hsl(107,50%,50%);
 	border-style: dotted;
 }
 li.age-10-0 { /*18*/
-	border-color: hsl(76,50%,50%);
+	border-color: hsl(90,50%,50%);
 }
 li.age-11-0 { /*19*/
-	border-color: hsl(57,50%,50%);
+	border-color: hsl(72,50%,50%);
 	border-style: dashed;
 }
 li.age-12-0 { /*20*/
-	border-color: hsl(38,50%,50%);
+	border-color: hsl(54,50%,50%);
 	border-style: dotted;
 }
+/*for 12.1 use same color as for 12.0*/
 li.age-12-1 { /*20*/
-	border-color: hsl(38,50%,50%); /*same as for 12.0*/
+	border-color: hsl(54,50%,50%);
 }
 li.age-13-0 { /*21*/
-	border-color: hsl(19,40%,50%);
+	border-color: hsl(36,50%,50%);
 	border-style: dashed;
 }
+/*from current - 5 decrease H as before, and reduce S to 40%*/
 li.age-14-0 { /*22*/
-	border-color: hsl(0,40%,50%);
+	border-color: hsl(18,40%,50%);
 	border-style: dotted;
 }
 li.age-15-0 { /*23*/
-	border-color: hsl(0,55%,50%);
+	border-color: hsl(0,40%,50%);
 }
+/*from current - 3 keep H at 0, and increase S by 15%*/
 li.age-15-1 { /*24*/
-	border-color: hsl(0,70%,50%);
+	border-color: hsl(0,55%,50%);
 	border-style: dashed;
 }
 li.age-16-0 { /*25*/
-	border-color: hsl(0,85%,50%);
+	border-color: hsl(0,70%,50%);
 	border-style: dotted;
 }
 li.age-17-0 { /*26*/
+	border-color: hsl(0,85%,50%);
+}
+li.age-18-0 { /*27*/
 	border-color: hsl(0,100%,50%);
+	border-style: dashed;
 }
 
 li.gc-cc {
